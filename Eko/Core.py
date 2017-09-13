@@ -18,7 +18,7 @@ class Core:
     def init(self):
         self._running = True
         self._exit = False
-        print("2")
+      #  print("2")
 
     def gameLoop(self):
         _startTime = time.time()

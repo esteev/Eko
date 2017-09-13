@@ -9,20 +9,22 @@ class Eko(Core,object):
 
     def init(self):
         super(Eko, self).init()
-        print("1")
-        self.nitrogenCycle = Abiotics.Nitrogen()
+      #  print("1")
+        dictTemp = {}
+        dictTemp["unUsed"] = 100
+        self.nitrogenCycle = Abiotics.Resource(dictTemp)
         self.pond()
 
     def update(self, timePassed):
         self.gameTime += timePassed
-        print(self.gameTime)
+     #W   print(self.gameTime)
 
     def stop(self):
         Core._exit = True
 
     def pond(self):
-        print (self.nitrogenCycle.nitrogenTake(10, "air"))
-
+        self.nitrogenCycle.showDict()
+        #print(self.nitrogenCycle.dict)
 
 
 eko = Eko()
