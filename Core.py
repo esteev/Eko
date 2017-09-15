@@ -17,14 +17,13 @@ class Core:
 
     def init(self):
         self._running = True
-        self._exit = False
       #  print("2")
 
     def gameLoop(self):
         _startTime = time.time()
         _cumTime = _startTime
 
-        while self._running or self._exit:
+        while self._running:
             _timePassed = time.time() - _cumTime
             _cumTime += _timePassed
             self.update(_timePassed)
