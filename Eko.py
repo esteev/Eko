@@ -1,5 +1,4 @@
 from Core import *
-#import Core as core
 import Abiotics as Abiotics
 import threading
 import matplotlib.pyplot as plt
