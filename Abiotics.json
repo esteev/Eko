@@ -1,0 +1,25 @@
+{
+    "water_cycle": {
+        "type": "piechart",
+        "tags": {
+            "air": {
+                "value": "60"
+            },
+            "pond": {
+                "value": "40"
+            }
+        }
+    },
+
+    "nitrogen_cycle": {
+        "type": "piechart",
+        "tags": {
+            "air": {
+                "value": "70"
+            },
+            "pond": {
+                "value": "30"
+            }
+        }
+    }
+}
