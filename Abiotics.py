@@ -13,23 +13,23 @@ class WaterCycle(Resource, object):
     def __init__(self, dictTemp):
         super(WaterCycle, self).__init__(dictTemp)
         self.addTag("Atmosphere")
-        self.addTag("Pond")
-        self.addTag("Biotic")
+        self.addTag("Hydrosphere")
+        self.addTag("Biosphere")
         self.resourceLeech(10, "Atmosphere", "unUsed")
-        self.resourceLeech(80, "Pond", "unUsed")
-        self.resourceLeech(10, "Biotic", "unUsed")
+        self.resourceLeech(80, "Hydrosphere", "unUsed")
+        self.resourceLeech(10, "Biosphere", "unUsed")
 
     def waterEvaporate(self, waterLeechVal):
-        self.resourceLeech(waterLeechVal, "Pond", "Atmosphere")
+        self.resourceLeech(waterLeechVal, "Hydrosphere", "Atmosphere")
 
     def waterPrecipitate(self, waterLeechVal):
-        self.resourceLeech(waterLeechVal, "Atmosphere", "Pond")
+        self.resourceLeech(waterLeechVal, "Atmosphere", "Hydrosphere")
 
     def waterConsume(self, waterLeechVal):
-        self.resourceLeech((waterLeechVal, "Pond", "Biotic"))
+        self.resourceLeech((waterLeechVal, "Hydrosphere", "Biosphere"))
 
     def waterRelease(self, waterLeechVal):
-        self.resourceLeech((waterLeechVal, "Biotic", "Pond"))
+        self.resourceLeech((waterLeechVal, "Biosphere", "Hydrosphere"))
 
 
 class NitrogenCycle(Resource, object):

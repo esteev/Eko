@@ -1,8 +1,6 @@
 from Core import *
+from Weather import *
 import Abiotics as Abiotics
-import threading
-import matplotlib.pyplot as plt
-from matplotlib.widgets import Slider, Button, RadioButtons
 
 
 class Eko(Core, object):
@@ -11,7 +9,8 @@ class Eko(Core, object):
 
     def init(self):
         super(Eko, self).init()
-        self.pond()
+        self.cycleThreadInitializePond()
+        self.showDeets()
 
     def update(self, timePassed):
         self.gameTime += timePassed
@@ -20,8 +19,7 @@ class Eko(Core, object):
     def stop(self):
         Core._running = False
 
-    def pond(self):
-        self.cycleThreadInitializePond()
+    def showDeets(self):
         self.waterCycle.showDict()
         self.nitrogenCycle.showDict()
         self.carbonCycle.showDict()
