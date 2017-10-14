@@ -3,10 +3,10 @@
         "type": "piechart",
         "tags": {
             "air": {
-                "value": "60"
+                "value": "40"
             },
             "pond": {
-                "value": "40"
+                "value": "60"
             }
         }
     },
@@ -15,10 +15,10 @@
         "type": "piechart",
         "tags": {
             "air": {
-                "value": "70"
+                "value": "60"
             },
             "pond": {
-                "value": "30"
+                "value": "40"
             }
         }
     }
