@@ -2,7 +2,7 @@ import threading
 import time
 
 
-class hiloThread(threading.Thread):
+class myThread(threading.Thread):
    exitFlag=0
    threadId = name = counter = None
 

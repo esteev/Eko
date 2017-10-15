@@ -1,15 +1,14 @@
 import json
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import time
 
-with open('Abiotics.json') as json_data:
+with open('AbioticsData.json') as json_data:
     d = json.load(json_data)
 fig, ax1 = plt.subplots(len(d.keys()))
 
 def animate(i):
-	# Open and load data from Abiotics.json
-	with open('Abiotics.json') as json_data:
+	# Open and load data from AbioticsData.json
+	with open('AbioticsData.json') as json_data:
 	    d = json.load(json_data)
 	for index, cycle in enumerate(d):
 		if d[cycle]["type"] == "piechart":
