@@ -1,6 +1,8 @@
+from collections import OrderedDict
+
 class Resource:
 
-    dict = {}
+    dict = OrderedDict()
 
     def __init__(self, dictTemp):
         self.dict = dictTemp
@@ -15,6 +17,9 @@ class Resource:
         self.dict[seedTag] -= leechVal
         self.dict[leechTag] += leechVal
 
+    def resourceStarter(self, leechVal, leechTag):
+        self.dict[leechTag] += leechVal
+
     def showDict(self):
         for x in self.dict:
             print("%s : %f" % (x, self.dict[x]))
@@ -26,14 +31,14 @@ class Resource:
         labels = []
         for x in self.dict:
             labels.append(x)
-        labels.pop(0)
+   #     labels.pop(0)
         return labels
 
     def returnValues(self):
         values = []
         for x in self.dict:
             values.append(self.dict[x])
-        values.pop(0)
+    #    values.pop(0)
         return values
 
     def returnExplode(self):

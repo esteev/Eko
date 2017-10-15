@@ -20,7 +20,7 @@ class Eko(Core, object):
     def update(self, timePassed):
         self.gameTime += timePassed
         print(self.gameTime)
-    #    self.jsonDataParser()
+        self.jsonDataParser()
         self.foreCaster.update()
         self.saveValuesToJSON()
 
@@ -30,15 +30,16 @@ class Eko(Core, object):
     def jsonDataParser(self):
         with open('AbioticsData.json') as json_data:
             self.dataFileAbiotics = json.load(json_data)
-        dict = {}
         count = 1
         for index, cycle in enumerate(self.dataFileAbiotics):
+            dict = {}
             labels = self.dataFileAbiotics[cycle]["tags"].keys()
             sizes = []
             for i, values in enumerate(self.dataFileAbiotics[cycle]["tags"]):
                 sizes.append(self.dataFileAbiotics[cycle]["tags"][values]["value"])
             for x, y in zip(labels, sizes):
                 dict[x] = y
+
             if count == 1:
                 self.waterCycle.resetValues(dict)
             elif count == 2:
@@ -87,18 +88,9 @@ class Eko(Core, object):
         self.carbonCycle.showDict()
 
     def cycleThreadInitializePond(self):
-        dictTemp2 = {}
-        dictTemp2["unUsed"] = 100
-        self.waterCycle = Abiotics.WaterCycle(dictTemp2)
-
-        dictTemp1 = {}
-        dictTemp1["unUsed"] = 100
-        self.nitrogenCycle = Abiotics.NitrogenCycle(dictTemp1)
-
-        dictTemp3 = {}
-        dictTemp3["unUsed"] = 100
-        self.carbonCycle = Abiotics.CarbonCycle(dictTemp3)
-
+        self.waterCycle = Abiotics.WaterCycle()
+        self.nitrogenCycle = Abiotics.NitrogenCycle()
+        self.carbonCycle = Abiotics.CarbonCycle()
         self.foreCaster = Weather.Forecast()
 
 

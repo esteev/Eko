@@ -6,11 +6,12 @@
 #oxygen
 
 from Resource import *
-import json
+
 
 class WaterCycle(Resource, object):
 
-    def __init__(self, dictTemp):
+    def __init__(self):
+        dictTemp = {'unUsed': 100}
         super(WaterCycle, self).__init__(dictTemp)
         self.addTag("Atmosphere")
         self.addTag("Hydrosphere")
@@ -34,7 +35,8 @@ class WaterCycle(Resource, object):
 
 class NitrogenCycle(Resource, object):
 
-    def __init__(self, dictTemp):
+    def __init__(self):
+        dictTemp = {'unUsed': 100}
         super(NitrogenCycle, self).__init__(dictTemp)
         self.addTag("Atmospheric N2")
         self.addTag("Dissolved N2")
@@ -63,8 +65,9 @@ class NitrogenCycle(Resource, object):
 
 class CarbonCycle(Resource, object):
 
-    def __init__(self, dictTemp):
-        super(CarbonCycle,self).__init__(dictTemp)
+    def __init__(self):
+        dictTemp = {'unUsed': 100}
+        super(CarbonCycle, self).__init__(dictTemp)
         self.addTag("Dissolved CO2")
         self.addTag("Atmospheric CO2")
         self.addTag("H2CO3")
