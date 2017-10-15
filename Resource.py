@@ -5,6 +5,8 @@ class Resource:
     def __init__(self, dictTemp):
         self.dict = dictTemp
 
+    def loadValues(self, dictTemp):
+        self.dict = dictTemp
 
     def addTag(self, tag):
         self.dict[tag] = 0
@@ -16,6 +18,9 @@ class Resource:
     def showDict(self):
         for x in self.dict:
             print("%s : %f" % (x, self.dict[x]))
+
+    def returnDict(self):
+        return self.dict
 
     def returnLabels(self):
         labels = []
