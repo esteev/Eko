@@ -34,8 +34,8 @@ class Eko(Core, object):
             sizes = []
             for i, values in enumerate(self.dataFileAbiotics[cycle]["tags"]):
                 sizes.append(self.dataFileAbiotics[cycle]["tags"][values]["value"])
-        print(labels)
-        print(sizes)
+        print json.dumps(labels)
+        print json.dumps(sizes)
 
     def saveValuesToJSON(self):
         data = OrderedDict()

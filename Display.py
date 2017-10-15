@@ -16,7 +16,7 @@ def animate(i):
 			sizes = []
 			for i, values in enumerate(d[cycle]["tags"]):
 				sizes.append(d[cycle]["tags"][values]["value"])
-			explode = (0, 0.1)
+			explode = [0] * len(d[cycle]["tags"].keys())
 			ax1[index].clear()
 			ax1[index].pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
 		        shadow=True, startangle=90)
