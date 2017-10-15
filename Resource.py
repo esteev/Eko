@@ -10,12 +10,9 @@ class Resource:
     def resetValues(self, dictTemp):
         self.dict = dictTemp
 
-    def addTag(self, tag):
-        self.dict[tag] = 0
-
     def resourceLeech(self, leechVal, leechTag, seedTag):
-        self.dict[seedTag] -= leechVal
-        self.dict[leechTag] += leechVal
+        self.dict[seedTag] = float(self.dict[seedTag]) - leechVal
+        self.dict[leechTag] = float(self.dict[leechTag]) + leechVal
 
     def resourceStarter(self, leechVal, leechTag):
         self.dict[leechTag] += leechVal
