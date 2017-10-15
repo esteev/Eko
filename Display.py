@@ -22,13 +22,5 @@ def animate(i):
 			ax1[index].pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
 		        shadow=True, startangle=90)
 			ax1[index].axis('equal') 
-	# ax1.clear()
-	# if d[cycle]["type"] == "piechart":
-	# 	labels = d[cycle]["tags"].keys()
-	# 	sizes = []
-	# 	for i, values in enumerate(d[cycle]["tags"]):
-	# 		sizes.append(d[cycle]["tags"][values]["value"])
-	# 	explode = (0, 0.1)
- #    # ax1.plot(xar,yar)
 ani = animation.FuncAnimation(fig, animate, interval=100)
 plt.show()
