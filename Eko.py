@@ -13,18 +13,20 @@ class Eko(Core, object):
         super(Eko, self).init()
         self.cycleThreadInitializePond()
         self.showDeets()
-        self.saveValuesToJSON()
+     #   self.saveValuesToJSON()
 
     def update(self, timePassed):
         self.gameTime += timePassed
         print(self.gameTime)
-    #    self.jsonDataParser()
+        self.jsonDataParser()
         self.foreCaster.update()
 
     def stop(self):
         Core._running = False
 
     def jsonDataParser(self):
+        labels = []
+        sizes = []
         with open('AbioticsData.json') as json_data:
             self.dataFileAbiotics = json.load(json_data)
         for index, cycle in enumerate(self.dataFileAbiotics):
@@ -32,6 +34,8 @@ class Eko(Core, object):
             sizes = []
             for i, values in enumerate(self.dataFileAbiotics[cycle]["tags"]):
                 sizes.append(self.dataFileAbiotics[cycle]["tags"][values]["value"])
+        print(labels)
+        print(sizes)
 
     def saveValuesToJSON(self):
         data = OrderedDict()

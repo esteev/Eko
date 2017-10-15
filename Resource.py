@@ -5,7 +5,7 @@ class Resource:
     def __init__(self, dictTemp):
         self.dict = dictTemp
 
-    def loadValues(self, dictTemp):
+    def resetValues(self, dictTemp):
         self.dict = dictTemp
 
     def addTag(self, tag):
