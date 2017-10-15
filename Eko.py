@@ -3,6 +3,7 @@ import Weather as Weather
 import Abiotics as Abiotics
 import json
 from collections import OrderedDict
+import Display as Display
 
 class Eko(Core, object):
     gameTime = 0.0
@@ -12,34 +13,44 @@ class Eko(Core, object):
     def init(self):
         super(Eko, self).init()
         self.cycleThreadInitializePond()
+        self.saveValuesToJSON()
         self.showDeets()
-     #   self.saveValuesToJSON()
+        Display.dikhao()
 
     def update(self, timePassed):
         self.gameTime += timePassed
         print(self.gameTime)
-        self.jsonDataParser()
+    #    self.jsonDataParser()
         self.foreCaster.update()
+        self.saveValuesToJSON()
 
     def stop(self):
         Core._running = False
 
     def jsonDataParser(self):
-        labels = []
-        sizes = []
         with open('AbioticsData.json') as json_data:
             self.dataFileAbiotics = json.load(json_data)
+        dict = {}
+        count = 1
         for index, cycle in enumerate(self.dataFileAbiotics):
             labels = self.dataFileAbiotics[cycle]["tags"].keys()
             sizes = []
             for i, values in enumerate(self.dataFileAbiotics[cycle]["tags"]):
                 sizes.append(self.dataFileAbiotics[cycle]["tags"][values]["value"])
-        print json.dumps(labels)
-        print json.dumps(sizes)
+            for x, y in zip(labels, sizes):
+                dict[x] = y
+            if count == 1:
+                self.waterCycle.resetValues(dict)
+            elif count == 2:
+                self.nitrogenCycle.resetValues(dict)
+            elif count == 3:
+                self.carbonCycle.resetValues(dict)
+            count = count + 1
+            print json.dumps(labels)
+            print json.dumps(sizes)
 
     def saveValuesToJSON(self):
         data = OrderedDict()
-
         #waterCycle
         data['water_cycle'] = {'type': 'piechart'}
         tags = {}

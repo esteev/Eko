@@ -20,6 +20,8 @@ def animate(i):
 			ax1[index].clear()
 			ax1[index].pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
 		        shadow=True, startangle=90)
-			ax1[index].axis('equal') 
-ani = animation.FuncAnimation(fig, animate, interval=100)
-plt.show()
+			ax1[index].axis('equal')
+
+def dikhao():
+    ani = animation.FuncAnimation(fig, animate, interval=100)
+    plt.show()
