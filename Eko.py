@@ -15,13 +15,15 @@ class Eko(Core, object):
         self.cycleThreadInitializePond()
         self.saveValuesToJSON()
         self.showDeets()
-        Display.dikhao()
+      #  Display.dikhao()
 
     def update(self, timePassed):
         self.gameTime += timePassed
         print(self.gameTime)
         self.jsonDataParser()
         self.foreCaster.update()
+        self.evaporation(timePassed)
+        self.precipitation()
         self.saveValuesToJSON()
 
     def stop(self):
@@ -93,7 +95,20 @@ class Eko(Core, object):
         self.carbonCycle = Abiotics.CarbonCycle()
         self.foreCaster = Weather.Forecast()
 
+    def evaporation(self, timePassed):
+        rate = self.foreCaster.heat.intensityVal
+        self.waterCycle.waterEvaporate(rate*timePassed)
+        self.nitrogenCycle.nitrogenEvaporate(rate*timePassed)
+        self.carbonCycle.carbonEvaporate(rate*timePassed)
+        self.foreCaster.changeHumidity(rate*timePassed*3)
+
+    def precipitation(self):
+        rate = self.foreCaster.moisture.humidVal
+        if rate > self.foreCaster.humidTolerance:
+            self.waterCycle.waterPrecipitate(rate/3)
+            self.nitrogenCycle.nitrogenPrecipitate(rate/3)
+            self.carbonCycle.carbonPrecipitate(rate/3)
+            self.foreCaster.changeHumidity(-rate)
 
 eko = Eko()
 eko.run()
-

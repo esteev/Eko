@@ -1,8 +1,8 @@
-from collections import OrderedDict
+#from collections import OrderedDict
 
 class Resource:
 
-    dict = OrderedDict()
+    dict = {}
 
     def __init__(self, dictTemp):
         self.dict = dictTemp

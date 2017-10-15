@@ -23,6 +23,7 @@ class Atmosphere(threading.Thread):
 class Forecast:
 
     heat = moisture = None
+    humidTolerance = None
 
     def __init__(self):
         self.heat = Sun(1)
@@ -30,18 +31,17 @@ class Forecast:
 
     def update(self):
         self.recaliberateSun()
-        self.recaliberateHumidity()
 
-    # Values are static for     Now
+    def changeHumidity(self, val):
+        self.moisture.humidVal += val
 
     def recaliberateSun(self):
+        #Sun is static
         self.heat.intensityVal = 1
-
-    def recaliberateHumidity(self):
-        self.moisture.humidVal = 1
 
     def getHeat(self):
         return self.heat.intensityVal
 
     def getMoisture(self):
         return self.moisture.humidVal
+
