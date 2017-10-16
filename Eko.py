@@ -15,7 +15,7 @@ class Eko(Core, object):
         super(Eko, self).init()
         self.cycleThreadInitializePond()
         self.saveValuesToJSON()
-     #   self.spawner()
+        self.spawnerPond()
         self.showDeets()
      #   Display.dikhao()
 
@@ -132,8 +132,14 @@ class Eko(Core, object):
             self.carbonCycle.resourcePrecipitate(rate/3)
             self.foreCaster.changeHumidity(-rate)
 
-    #def spawner(self):
-       # algae = Biotic("algae", 1)
+    def spawnerPond(self):
+        algae = Algae("1", 1, 1, 0.01, 0)
+        catTail = CatTail("2", 2, 1, 0.1, 0)
+        zooPlankton = ZooPlankton("3", 1, 1, 0.01, 1)
+        tadpole = Tadpole("4", 3, 2, 0.2, 1.5)
+        smallFishy = GreenSunfish("5", 10, 5, 0.7, 2)
+        bigFishy = LargeBassMouth("6", 15, 7, 1, 3)
+        stork = Stork("7", 30, 10, 1.2, 4)
 
 eko = Eko()
 eko.run()
