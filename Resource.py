@@ -17,6 +17,12 @@ class Resource:
     def resourceStarter(self, leechVal, leechTag):
         self.dict[leechTag] += leechVal
 
+    def resourceEvaporate(self, leechVal):
+        self.resourceLeech(leechVal, 'Hydrosphere', 'Atmosphere')
+
+    def resourcePrecipitate(self, leechVal):
+        self.resourceLeech(leechVal, 'Atmosphere', 'Hydrosphere')
+
     def showDict(self):
         for x in self.dict:
             print("%s : %f" % (x, self.dict[x]))

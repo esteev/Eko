@@ -3,7 +3,8 @@ import Weather as Weather
 import Abiotics as Abiotics
 import json
 from collections import OrderedDict
-import Display as Display
+from Biotic import *
+
 
 class Eko(Core, object):
     gameTime = 0.0
@@ -14,8 +15,9 @@ class Eko(Core, object):
         super(Eko, self).init()
         self.cycleThreadInitializePond()
         self.saveValuesToJSON()
+     #   self.spawner()
         self.showDeets()
-      #  Display.dikhao()
+     #   Display.dikhao()
 
     def update(self, timePassed):
         self.gameTime += timePassed
@@ -81,6 +83,24 @@ class Eko(Core, object):
             tags[k] = {'value': str(v)}
         data['carbon_cycle']["tags"] = tags
 
+        # phosphorousCycle
+        data['phosphorous_cycle'] = {'type': 'piechart'}
+        tags = {}
+        tagsTemp = self.phosphorousCycle.returnLabels()
+        valsTemp = self.phosphorousCycle.returnValues()
+        for k, v in zip(tagsTemp, valsTemp):
+            tags[k] = {'value': str(v)}
+        data['phosphorous_cycle']["tags"] = tags
+
+        # sulphurCycle
+        data['sulphur_cycle'] = {'type': 'piechart'}
+        tags = {}
+        tagsTemp = self.sulphurCycle.returnLabels()
+        valsTemp = self.sulphurCycle.returnValues()
+        for k, v in zip(tagsTemp, valsTemp):
+            tags[k] = {'value': str(v)}
+        data['sulphur_cycle']["tags"] = tags
+
         with open('AbioticsData.json', 'w') as outfile:
             json.dump(data, outfile)
 
@@ -93,22 +113,27 @@ class Eko(Core, object):
         self.waterCycle = Abiotics.WaterCycle()
         self.nitrogenCycle = Abiotics.NitrogenCycle()
         self.carbonCycle = Abiotics.CarbonCycle()
+        self.phosphorousCycle = Abiotics.PhosphorousCycle()
+        self.sulphurCycle = Abiotics.SulphurCycle()
         self.foreCaster = Weather.Forecast()
 
     def evaporation(self, timePassed):
         rate = self.foreCaster.heat.intensityVal
-        self.waterCycle.waterEvaporate(rate*timePassed)
-        self.nitrogenCycle.nitrogenEvaporate(rate*timePassed)
-        self.carbonCycle.carbonEvaporate(rate*timePassed)
+        self.waterCycle.resourceEvaporate(rate*timePassed)
+        self.nitrogenCycle.resourceEvaporate(rate*timePassed)
+        self.carbonCycle.resourceEvaporate(rate*timePassed)
         self.foreCaster.changeHumidity(rate*timePassed*3)
 
     def precipitation(self):
         rate = self.foreCaster.moisture.humidVal
         if rate > self.foreCaster.humidTolerance:
-            self.waterCycle.waterPrecipitate(rate/3)
-            self.nitrogenCycle.nitrogenPrecipitate(rate/3)
-            self.carbonCycle.carbonPrecipitate(rate/3)
+            self.waterCycle.resourcePrecipitate(rate/3)
+            self.nitrogenCycle.resourcePrecipitate(rate/3)
+            self.carbonCycle.resourcePrecipitate(rate/3)
             self.foreCaster.changeHumidity(-rate)
+
+    #def spawner(self):
+       # algae = Biotic("algae", 1)
 
 eko = Eko()
 eko.run()
