@@ -8,7 +8,7 @@ from Biotic import *
 
 class Eko(Core, object):
     gameTime = 0.0
-    nitrogenCycle = waterCycle = carbonCycle = phosphorousCycle = sulphurCycle = foreCaster = None
+    nitrogenCycle = waterCycle = carbonCycle = oxygenCycle =phosphorousCycle = sulphurCycle = foreCaster = None
     dataFileAbiotics = None
 
     def init(self):
@@ -52,6 +52,12 @@ class Eko(Core, object):
                 self.nitrogenCycle.resetValues(dict)
             elif count == 3:
                 self.carbonCycle.resetValues(dict)
+            elif count == 4:
+                self.oxygenCycle.resetValues(dict)
+            elif count == 5:
+                self.phosphorousCycle.resetValues(dict)
+            elif count == 6:
+                self.sulphurCycle.resetValues(dict)
             count = count + 1
             print json.dumps(labels)
             print json.dumps(sizes)
@@ -85,6 +91,15 @@ class Eko(Core, object):
             tags[k] = {'value': str(v)}
         data['carbon_cycle']["tags"] = tags
 
+        # oxygenCycle
+        data['oxygen_cycle'] = {'type': 'piechart'}
+        tags = {}
+        tagsTemp = self.oxygenCycle.returnLabels()
+        valsTemp = self.oxygenCycle.returnValues()
+        for k, v in zip(tagsTemp, valsTemp):
+            tags[k] = {'value': str(v)}
+        data['oxygen_cycle']["tags"] = tags
+
         # phosphorousCycle
         data['phosphorous_cycle'] = {'type': 'piechart'}
         tags = {}
@@ -115,6 +130,7 @@ class Eko(Core, object):
         self.waterCycle = Abiotics.WaterCycle()
         self.nitrogenCycle = Abiotics.NitrogenCycle()
         self.carbonCycle = Abiotics.CarbonCycle()
+        self.oxygenCycle = Abiotics.OxygenCycle()
         self.phosphorousCycle = Abiotics.PhosphorousCycle()
         self.sulphurCycle = Abiotics.SulphurCycle()
         self.foreCaster = Weather.Forecast()

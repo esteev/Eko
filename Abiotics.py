@@ -110,3 +110,4 @@ class SulphurCycle(Resource, object):
         self.resourceLeech(20, 'Clooh', 'unUsed')
         self.resourceLeech(10, 'Claah', 'unUsed')
 
+
