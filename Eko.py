@@ -15,9 +15,8 @@ class Eko(Core, object):
         super(Eko, self).init()
         self.cycleThreadInitializePond()
         self.saveValuesToJSON()
-     #   self.spawnerPond()
+        self.spawnerPond()
         self.showDeets()
-     #   Display.dikhao()
 
     def update(self, timePassed):
         self.gameTime += timePassed

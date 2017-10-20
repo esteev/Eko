@@ -14,13 +14,14 @@ class Biotic:
 
 # Layer 0 of the food chain
 
-class Algae(object, Biotic):
+class Algae(Biotic, object):
 
     def __init__(self, id, health, sexualMaturity, waterConcentration, foodChainRank):
         super(Algae, self).__init__(id, health, sexualMaturity, waterConcentration, foodChainRank)
+        self.id = id
 
 
-class CatTail(object, Biotic):
+class CatTail(Biotic, object):
 
     def __init__(self, id, health, sexualMaturity, waterConcentration, foodChainRank):
         super(CatTail, self).__init__(id, health, sexualMaturity, waterConcentration, foodChainRank)
@@ -29,13 +30,13 @@ class CatTail(object, Biotic):
 # Layer 1 of the food chain
 
 
-class ZooPlankton(object, Biotic):
+class ZooPlankton(Biotic, object):
 
     def __init__(self, id, health, sexualMaturity, waterConcentration, foodChainRank):
         super(ZooPlankton, self).__init__(id, health, sexualMaturity, waterConcentration, foodChainRank)
 
 
-class Tadpole(object, Biotic):
+class Tadpole(Biotic, object):
 
     def __init__(self, id, health, sexualMaturity, waterConcentration, foodChainRank):
         super(Tadpole, self).__init__(id, health, sexualMaturity, waterConcentration, foodChainRank)
@@ -43,7 +44,7 @@ class Tadpole(object, Biotic):
 # Layer 2 of the food chain
 
 
-class GreenSunfish(object, Biotic):
+class GreenSunfish(Biotic, object):
 
     def __init__(self, id, health, sexualMaturity, waterConcentration, foodChainRank):
         super(GreenSunfish, self).__init__(id, health, sexualMaturity, waterConcentration, foodChainRank)
@@ -51,7 +52,7 @@ class GreenSunfish(object, Biotic):
 # Layer 3 of the food chain
 
 
-class LargeBassMouth(object, Biotic):
+class LargeBassMouth(Biotic, object):
 
     def __init__(self, id, health, sexualMaturity, waterConcentration, foodChainRank):
         super(LargeBassMouth, self).__init__(id, health, sexualMaturity, waterConcentration, foodChainRank)
@@ -59,7 +60,7 @@ class LargeBassMouth(object, Biotic):
 #Layer 4 of the food chain
 
 
-class Stork(object, Biotic):
+class Stork(Biotic, object):
 
     def __init__(self, id, health, sexualMaturity, waterConcentration, foodChainRank):
         super(Stork, self).__init__(id, health, sexualMaturity, waterConcentration, foodChainRank)
