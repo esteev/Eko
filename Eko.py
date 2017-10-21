@@ -9,7 +9,7 @@ from Buffer import *
 
 class Eko(Core, object):
     gameTime = 0.0
-    nitrogenCycle = waterCycle = carbonCycle = oxygenCycle =phosphorousCycle = sulphurCycle = foreCaster = None
+    nitrogenCycle = waterCycle = carbonCycle = oxygenCycle = phosphorousCycle = sulphurCycle = foreCaster = None
     buffer = dataFileAbiotics = None
 
     def init(self):

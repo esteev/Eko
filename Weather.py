@@ -13,7 +13,7 @@ class Sun(threading.Thread):
 
 class Atmosphere(threading.Thread):
 
-    oxygenVal = nitrogenVal = humidVal = None
+    humidVal = None
 
     def __init__(self, val):
         threading.Thread.__init__(self)
