@@ -52,7 +52,7 @@ def on_click(event):
         flag = 1
         animate(0)
         ax._orig_position = ax.get_position()
-        ax.set_position([ax._orig_position.x0 - 0.5, 0.6, ax._orig_position.width*1.2, ax._orig_position.height*1.2])
+        ax.set_position([ax._orig_position.x0 - 0.5, 0.6, ax._orig_position.width*2, ax._orig_position.height*2])
     elif event.button is 3:
         flag = 0
         try:
