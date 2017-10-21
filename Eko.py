@@ -1,5 +1,5 @@
 import Abiotics as Abiotics
-# from Biotic import *
+from Biotic import *
 from Buffer import *
 from collections import OrderedDict
 from Core import *
@@ -48,19 +48,20 @@ class Eko(Core, object):
             for x, y in zip(labels, sizes):
                 dict[x] = y
 
-            if count == 1:
-                self.waterCycle.resetValues(dict)
-            elif count == 2:
-                self.nitrogenCycle.resetValues(dict)
-            elif count == 3:
-                self.carbonCycle.resetValues(dict)
-            elif count == 4:
-                self.oxygenCycle.resetValues(dict)
-            elif count == 5:
-                self.phosphorousCycle.resetValues(dict)
-            elif count == 6:
-                self.sulphurCycle.resetValues(dict)
-            count = count + 1
+            # if count == 1:
+            #     self.waterCycle.resetValues(dict)
+            # elif count == 2:
+            #     self.nitrogenCycle.resetValues(dict)
+            # elif count == 3:
+            #     self.carbonCycle.resetValues(dict)
+            # elif count == 4:
+            #     self.oxygenCycle.resetValues(dict)
+            # elif count == 5:
+            #     self.phosphorousCycle.resetValues(dict)
+            # elif count == 6:
+            #     self.sulphurCycle.resetValues(dict)
+            # count = count + 1
+            
             print json.dumps(labels)
             print json.dumps(sizes)
 
