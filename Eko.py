@@ -153,17 +153,18 @@ class Eko(Core, object):
             self.foreCaster.changeHumidity(-rate)
 
     def bufferStarter(self):
-        self.buffer = Buffer(100, 100, 100)
-        self.buffer.printer()
+        self.buffer = Buffer(10,10,10)
+     #   self.buffer = Buffer(10)
+     #   self.buffer.printer()
 
     def spawnerPond(self):
-        algae = Algae("1", 1, 1, 0.01, 0)
-        catTail = CatTail("2", 2, 1, 0.1, 0)
-        zooPlankton = ZooPlankton("3", 1, 1, 0.01, 1)
-        tadpole = Tadpole("4", 3, 2, 0.2, 1.5)
-        smallFishy = GreenSunfish("5", 10, 5, 0.7, 2)
-        bigFishy = LargeBassMouth("6", 15, 7, 1, 3)
-        stork = Stork("7", 30, 10, 1.2, 4)
+        algae = Algae("1", 1, 1, 0.01, 0, 5)
+        catTail = CatTail("2", 2, 1, 0.1, 0, 5)
+        zooPlankton = ZooPlankton("3", 1, 1, 0.01, 1, 5)
+        tadpole = Tadpole("4", 3, 2, 0.2, 1.5, 5)
+        smallFishy = GreenSunfish("5", 10, 5, 0.7, 2, 5)
+        bigFishy = LargeBassMouth("6", 15, 7, 1, 3, 5)
+        stork = Stork("7", 30, 10, 1.2, 4, 5)
 
 eko = Eko()
 eko.run()
