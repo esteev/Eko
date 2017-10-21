@@ -1,11 +1,11 @@
-from Core import *
-import Weather as Weather
 import Abiotics as Abiotics
-import json
-from collections import OrderedDict
 from Biotic import *
 from Buffer import *
-
+from collections import OrderedDict
+from Core import *
+import json
+from jsonManager import *
+import Weather as Weather
 
 class Eko(Core, object):
     gameTime = 0.0
@@ -36,8 +36,8 @@ class Eko(Core, object):
         Core._running = False
 
     def jsonDataParser(self):
-        with open('AbioticsData.json') as json_data:
-            self.dataFileAbiotics = json.load(json_data)
+        reader = jsonManager()
+        self.dataFileAbiotics = reader.readFile()
         count = 1
         for index, cycle in enumerate(self.dataFileAbiotics):
             dict = {}
@@ -48,24 +48,27 @@ class Eko(Core, object):
             for x, y in zip(labels, sizes):
                 dict[x] = y
 
-            if count == 1:
-                self.waterCycle.resetValues(dict)
-            elif count == 2:
-                self.nitrogenCycle.resetValues(dict)
-            elif count == 3:
-                self.carbonCycle.resetValues(dict)
-            elif count == 4:
-                self.oxygenCycle.resetValues(dict)
-            elif count == 5:
-                self.phosphorousCycle.resetValues(dict)
-            elif count == 6:
-                self.sulphurCycle.resetValues(dict)
-            count = count + 1
+            # if count == 1:
+            #     self.waterCycle.resetValues(dict)
+            # elif count == 2:
+            #     self.nitrogenCycle.resetValues(dict)
+            # elif count == 3:
+            #     self.carbonCycle.resetValues(dict)
+            # elif count == 4:
+            #     self.oxygenCycle.resetValues(dict)
+            # elif count == 5:
+            #     self.phosphorousCycle.resetValues(dict)
+            # elif count == 6:
+            #     self.sulphurCycle.resetValues(dict)
+            # count = count + 1
+            
             print json.dumps(labels)
             print json.dumps(sizes)
 
     def saveValuesToJSON(self):
         data = OrderedDict()
+        save = jsonManager()
+
         #waterCycle
         data['water_cycle'] = {'type': 'piechart'}
         tags = {}
@@ -74,6 +77,7 @@ class Eko(Core, object):
         for k, v in zip(tagsTemp, valsTemp):
             tags[k] = {'value': str(v)}
         data['water_cycle']["tags"] = tags
+
 
         # nitrogenCycle
         data['nitrogen_cycle'] = {'type': 'piechart'}
@@ -120,8 +124,7 @@ class Eko(Core, object):
             tags[k] = {'value': str(v)}
         data['sulphur_cycle']["tags"] = tags
 
-        with open('AbioticsData.json', 'w') as outfile:
-            json.dump(data, outfile)
+        save.saveData(data)
 
     def showDeets(self):
         self.waterCycle.showDict()

@@ -39,7 +39,11 @@ class Biotic:
     def returnMaturity(self):
         return  self.sexualMaturity
 
+<<<<<<<
     #def return
+=======
+    # def return
+>>>>>>>
 
 # Layer 0 of the food chain
 
