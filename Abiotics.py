@@ -69,22 +69,13 @@ class CarbonCycle(Resource, object):
 class OxygenCycle(Resource, object):
 
     def __init__(self):
-        dictTemp = {'unUsed': 100, 'Atmosphere': 0, 'Hydrosphere': 0, 'H2CO3': 0, 'HCO3-': 0, 'CO32-': 0}
+        dictTemp = {'unUsed': 100, 'Atmosphere': 0, 'Hydrosphere': 0, 'Sleh': 0, 'Slah': 0, 'Slooh': 0}
         super(OxygenCycle, self).__init__(dictTemp)
         self.resourceLeech(10, 'Atmosphere', 'unUsed')
         self.resourceLeech(40, 'Hydrosphere', 'unUsed')
-        self.resourceLeech(20, 'H2CO3', 'unUsed')
-        self.resourceLeech(20, 'HCO3-', 'unUsed')
-        self.resourceLeech(10, 'CO32-', 'unUsed')
-
-    def carbonicAcid(self, carbonLeechVal):
-        self.resourceLeech(carbonLeechVal, 'Hydrosphere', 'H2C03')
-
-    def firstIonization(self, carbonLeechVal):
-        self.resourceLeech(carbonLeechVal, 'H2CO3', 'HCO3-')
-
-    def secondIonization(self, carbonLeechVal):
-        self.resourceLeech(carbonLeechVal, 'Hydrosphere', 'H2C03')
+        self.resourceLeech(20, 'Sleh', 'unUsed')
+        self.resourceLeech(20, 'Slah', 'unUsed')
+        self.resourceLeech(10, 'Slooh', 'unUsed')
 
 
 class PhosphorousCycle(Resource, object):

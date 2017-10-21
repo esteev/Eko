@@ -4,15 +4,17 @@ import Abiotics as Abiotics
 import json
 from collections import OrderedDict
 from Biotic import *
+from Buffer import *
 
 
 class Eko(Core, object):
     gameTime = 0.0
     nitrogenCycle = waterCycle = carbonCycle = oxygenCycle =phosphorousCycle = sulphurCycle = foreCaster = None
-    dataFileAbiotics = None
+    buffer = dataFileAbiotics = None
 
     def init(self):
         super(Eko, self).init()
+        self.bufferStarter()
         self.cycleThreadInitializePond()
         self.saveValuesToJSON()
         self.spawnerPond()
@@ -149,6 +151,10 @@ class Eko(Core, object):
             self.nitrogenCycle.resourcePrecipitate(rate/3)
             self.carbonCycle.resourcePrecipitate(rate/3)
             self.foreCaster.changeHumidity(-rate)
+
+    def bufferStarter(self):
+        self.buffer = Buffer(100, 100, 100)
+        self.buffer.printer()
 
     def spawnerPond(self):
         algae = Algae("1", 1, 1, 0.01, 0)

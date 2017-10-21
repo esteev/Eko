@@ -9,3 +9,10 @@ class Buffer:
     def printer(self):
         for x in range(len(self.buffer)):
             print self.buffer[x]
+
+    def returnPos(self, i, j, k):
+        return self.buffer[i][j][k]
+
+    def updatePos(self, i, j, k, ch):
+        self.buffer[i][j][k] = ch
+
