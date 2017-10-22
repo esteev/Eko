@@ -3,7 +3,7 @@ import math
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-with open('AbioticsData.json') as json_data:
+with open('./Data/AbioticsData.json') as json_data:
     d = json.load(json_data)
 
 val = int(math.ceil(len(d.keys())**0.5))
@@ -23,7 +23,7 @@ font = {'size'   : 10}
 plt.rc('font', **font)
 
 def animate(i):
-	with open('AbioticsData.json') as json_data:
+	with open('./Data/AbioticsData.json') as json_data:
 	    d = json.load(json_data)
 	for index, cycle in enumerate(d):
 		if d[cycle]["type"] == "piechart":

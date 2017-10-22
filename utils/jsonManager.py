@@ -6,12 +6,12 @@ class jsonManager:
     	pass
 
     def readFile(self):
-        with open('AbioticsData.json') as json_data:
+        with open('./Data/AbioticsData.json') as json_data:
             dataFileAbiotics = json.load(json_data)
         return dataFileAbiotics
     
     def saveData(self, data):
-        with open('LogData.json', 'a') as outfile:
+        with open('./Data/LogData.json', 'a') as outfile:
             json.dump(data, outfile)
-        with open('AbioticsData.json', 'w') as outfile:
+        with open('./Data/AbioticsData.json', 'w') as outfile:
             json.dump(data, outfile)
