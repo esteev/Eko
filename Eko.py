@@ -1,11 +1,11 @@
-import Abiotics as Abiotics
-from Biotic import *
+import Abiotics.Abiotics as Abiotics
+from Biotics.Biotic import *
 from Buffer import *
 from collections import OrderedDict
 from Core import *
 import json
-from jsonManager import *
-import Weather as Weather
+from utils.jsonManager import *
+import Abiotics.Weather as Weather
 
 class Eko(Core, object):
     gameTime = 0.0
