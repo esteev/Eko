@@ -11,6 +11,47 @@ class Eko(Core, object):
     gameTime = 0.0
     nitrogenCycle = waterCycle = carbonCycle = oxygenCycle = phosphorousCycle = sulphurCycle = foreCaster = None
     buffer = dataFileAbiotics = None
+    maintainer = {
+        "water_cycle": {
+            "Biosphere": [],
+            "Atmosphere": [],
+            "Hydrosphere": []
+        },
+        "nitrogen_cycle": {
+            "Atmosphere": [],
+            "Hydrosphere": [],
+            "NH3": [],
+            "NO3-": []
+        },
+        "carbon_cycle": {
+            "Atmosphere": [],
+            "Hydrosphere": [],
+            "HCO3-": [],
+            "CO32-": [],
+            "H2CO3": []
+        },
+        "oxygen_cycle": {
+            "Sleh": [],
+            "Hydrosphere": [],
+            "Atmosphere": [],
+            "Slooh": [],
+            "Slah": []
+        },
+        "phosphorous_cycle": {
+            "Atmosphere": [],
+            "Hydrosphere": [],
+            "Blooh": [],
+            "Blaah": [],
+            "Bleh": []
+        },
+        "sulphur_cycle": {
+            "Atmosphere": [],
+            "Clooh": [],
+            "Claah": [],
+            "Hydrosphere": [],
+            "Cleh": []
+        }
+    }
 
     def init(self):
         super(Eko, self).init()
@@ -62,8 +103,8 @@ class Eko(Core, object):
             #     self.sulphurCycle.resetValues(dict)
             # count = count + 1
             
-            print json.dumps(labels)
-            print json.dumps(sizes)
+            # print json.dumps(labels)
+            # print json.dumps(sizes)
 
     def saveValuesToJSON(self):
         data = OrderedDict()
@@ -124,7 +165,7 @@ class Eko(Core, object):
             tags[k] = {'value': str(v)}
         data['sulphur_cycle']["tags"] = tags
 
-        save.saveData(data)
+        self.maintainer = save.saveData(data, self.maintainer)
 
     def showDeets(self):
         self.waterCycle.showDict()
