@@ -9,7 +9,7 @@ import Abiotics.Weather as Weather
 
 class Eko(Core, object):
     gameTime = 0.0
-    nitrogenCycle = waterCycle = carbonCycle = oxygenCycle = phosphorousCycle = sulphurCycle = foreCaster = None
+    nitrogenCycle = waterCycle = carbonCycle = oxygenCycle = phosphorousCycle = sulphurCycle = foreCaster = jansankhya = None
     buffer = dataFileAbiotics = None
     maintainer = {
         "water_cycle": {
@@ -58,7 +58,7 @@ class Eko(Core, object):
      #   self.bufferStarter()
         self.cycleThreadInitializePond()
         self.saveValuesToJSON()
-     #   self.spawnerPond()
+        self.spawnerPond()
         self.showDeets()
 
     def update(self, timePassed):
@@ -186,17 +186,14 @@ class Eko(Core, object):
         self.buffer = Buffer(3, 3, 3)
         self.buffer.printer()
 
+    # called at the start
     def spawnerPond(self):
-        self.instPopulation(1, 1, 1, 1, 1, 1, 1)
+        self.jansankhya = Jansankhya(20, 15, 10, 5, 3, 2, 1)
 
+    # called whenever population is to be increased
     def instPopulation(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount):
-        algae = Algae("1", 1, 1, 0.01, 0, 5)
-        catTail = CatTail("2", 2, 1, 0.1, 0, 5)
-        zooPlankton = ZooPlankton("3", 1, 1, 0.01, 1, 5)
-        tadpole = Tadpole("4", 3, 2, 0.2, 1.5, 5)
-        smallFishy = GreenSunfish("5", 10, 5, 0.7, 2, 5)
-        bigFishy = LargeBassMouth("6", 15, 7, 1, 3, 5)
-        stork = Stork("7", 30, 10, 1.2, 4, 5)
+        self.jansankhya.populator(algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount)
+
 
 eko = Eko()
 eko.run()

@@ -6,24 +6,31 @@ class Jansankhya:
     algae = catTail = zooPlankton = tadpole = greenSunFish = largeBassMouth = stork = []
 
     def __init__(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount):
-        self.populator(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount)
+        self.populator(algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount)
 
     def populator(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount):
-        self.algae = [Algae() for i in range(algaeCount)]
-        self.looper(self.algae, algaeCount, al)
-        self.looper(self.catTail, catTailCount, ct)
-        self.looper(self.zooPlankton, zooPlanktonCount, zp)
-        self.looper(self.tadpole, tadpoleCount, tp)
-        self.looper(self.greenSunFish, smallFishyCount, gr)
-        self.looper(self.largeBassMouth, bigFishyCount, lb)
-        self.looper(self.stork, storkCount, st)
+        self.algae = [Algae("1", 1, 1, 0.01, 0, 5) for i in range(algaeCount)]
+        self.catTail = [CatTail("2", 2, 1, 0.1, 0, 5) for i in range(catTailCount)]
+        self.zooPlankton = [ZooPlankton("3", 1, 1, 0.01, 1, 5) for i in range(zooPlanktonCount)]
+        self.tadpole = [Tadpole("4", 3, 2, 0.2, 1.5, 5) for i in range(tadpoleCount)]
+        self.greenSunFish = [GreenSunfish("5", 10, 5, 0.7, 2, 5) for i in range(smallFishyCount)]
+        self.largeBassMouth = [LargeBassMouth("6", 15, 7, 1, 3, 5) for i in range(bigFishyCount)]
+        self.stork = [Stork("7", 30, 10, 1.2, 4, 5) for i in range(storkCount)]
+        self.printer()
+        self.totalPop()
 
-    def looper(self, list, listCount, listEle):
-        for i in range(listCount):
-            list.append(listEle)
+    def printer(self):
+        print ('Algae = '+str(len(self.algae)))
+        print ('CatTail = '+str(len(self.catTail)))
+        print ('Zoo Plankton = '+str(len(self.zooPlankton)))
+        print ('Tadpoles = '+str(len(self.tadpole)))
+        print ('Green Sunfish = ' + str(len(self.greenSunFish)))
+        print ('LargeBassMouth = '+str(len(self.largeBassMouth)))
+        print ('Stork = '+str(len(self.stork)))
 
-    def popShow(self):
-        print("Algae :" + len(self.algae))
+    def totalPop(self):
+        print(len(self.algae)+len(self.catTail)+len(self.zooPlankton)+len(self.tadpole)+len(self.greenSunFish)+len(self.largeBassMouth)+len(self.stork))
+
 
 
 class Drives(Enum):
