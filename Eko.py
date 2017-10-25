@@ -58,7 +58,7 @@ class Eko(Core, object):
      #   self.bufferStarter()
         self.cycleThreadInitializePond()
         self.saveValuesToJSON()
-        self.spawnerPond()
+     #   self.spawnerPond()
         self.showDeets()
 
     def update(self, timePassed):
