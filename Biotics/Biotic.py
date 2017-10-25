@@ -1,6 +1,31 @@
 from enum import Enum
 
 
+class Jansankhya:
+
+    algae = catTail = zooPlankton = tadpole = greenSunFish = largeBassMouth = stork = []
+
+    def __init__(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount):
+        self.populator(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount)
+
+    def populator(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount):
+        self.algae = [Algae() for i in range(algaeCount)]
+        self.looper(self.algae, algaeCount, al)
+        self.looper(self.catTail, catTailCount, ct)
+        self.looper(self.zooPlankton, zooPlanktonCount, zp)
+        self.looper(self.tadpole, tadpoleCount, tp)
+        self.looper(self.greenSunFish, smallFishyCount, gr)
+        self.looper(self.largeBassMouth, bigFishyCount, lb)
+        self.looper(self.stork, storkCount, st)
+
+    def looper(self, list, listCount, listEle):
+        for i in range(listCount):
+            list.append(listEle)
+
+    def popShow(self):
+        print("Algae :" + len(self.algae))
+
+
 class Drives(Enum):
     PAIN = 0
     DANGER = 1

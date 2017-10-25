@@ -55,7 +55,7 @@ class Eko(Core, object):
 
     def init(self):
         super(Eko, self).init()
-        self.bufferStarter()
+     #   self.bufferStarter()
         self.cycleThreadInitializePond()
         self.saveValuesToJSON()
         self.spawnerPond()
@@ -88,20 +88,6 @@ class Eko(Core, object):
                 sizes.append(self.dataFileAbiotics[cycle]["tags"][values]["value"])
             for x, y in zip(labels, sizes):
                 dict[x] = y
-
-            # if count == 1:
-            #     self.waterCycle.resetValues(dict)
-            # elif count == 2:
-            #     self.nitrogenCycle.resetValues(dict)
-            # elif count == 3:
-            #     self.carbonCycle.resetValues(dict)
-            # elif count == 4:
-            #     self.oxygenCycle.resetValues(dict)
-            # elif count == 5:
-            #     self.phosphorousCycle.resetValues(dict)
-            # elif count == 6:
-            #     self.sulphurCycle.resetValues(dict)
-            # count = count + 1
             
             # print json.dumps(labels)
             # print json.dumps(sizes)
@@ -197,11 +183,13 @@ class Eko(Core, object):
             self.foreCaster.changeHumidity(-rate)
 
     def bufferStarter(self):
-        self.buffer = Buffer(10,10,10)
-     #   self.buffer = Buffer(10)
-     #   self.buffer.printer()
+        self.buffer = Buffer(3, 3, 3)
+        self.buffer.printer()
 
     def spawnerPond(self):
+        self.instPopulation(1, 1, 1, 1, 1, 1, 1)
+
+    def instPopulation(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount):
         algae = Algae("1", 1, 1, 0.01, 0, 5)
         catTail = CatTail("2", 2, 1, 0.1, 0, 5)
         zooPlankton = ZooPlankton("3", 1, 1, 0.01, 1, 5)
