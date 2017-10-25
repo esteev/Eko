@@ -39,3 +39,6 @@ ehthumbs.db
 Thumbs.db
 
 .idea
+
+Data/AbioticsData.json
+Data/LogData.json

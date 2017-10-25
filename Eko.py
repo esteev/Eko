@@ -11,47 +11,7 @@ class Eko(Core, object):
     gameTime = 0.0
     nitrogenCycle = waterCycle = carbonCycle = oxygenCycle = phosphorousCycle = sulphurCycle = foreCaster = jansankhya = None
     buffer = dataFileAbiotics = None
-    maintainer = {
-        "water_cycle": {
-            "Biosphere": [],
-            "Atmosphere": [],
-            "Hydrosphere": []
-        },
-        "nitrogen_cycle": {
-            "Atmosphere": [],
-            "Hydrosphere": [],
-            "NH3": [],
-            "NO3-": []
-        },
-        "carbon_cycle": {
-            "Atmosphere": [],
-            "Hydrosphere": [],
-            "HCO3-": [],
-            "CO32-": [],
-            "H2CO3": []
-        },
-        "oxygen_cycle": {
-            "Sleh": [],
-            "Hydrosphere": [],
-            "Atmosphere": [],
-            "Slooh": [],
-            "Slah": []
-        },
-        "phosphorous_cycle": {
-            "Atmosphere": [],
-            "Hydrosphere": [],
-            "Blooh": [],
-            "Blaah": [],
-            "Bleh": []
-        },
-        "sulphur_cycle": {
-            "Atmosphere": [],
-            "Clooh": [],
-            "Claah": [],
-            "Hydrosphere": [],
-            "Cleh": []
-        }
-    }
+    maintainer = {}
 
     def init(self):
         super(Eko, self).init()
@@ -166,6 +126,32 @@ class Eko(Core, object):
         self.phosphorousCycle = Abiotics.PhosphorousCycle()
         self.sulphurCycle = Abiotics.SulphurCycle()
         self.foreCaster = Weather.Forecast()
+
+        self.maintainer = {}
+        self.maintainer['water_cycle'] = {}
+        self.maintainer['nitrogen_cycle'] = {}
+        self.maintainer['carbon_cycle'] = {}
+        self.maintainer['oxygen_cycle'] = {}
+        self.maintainer['phosphorous_cycle'] = {}
+        self.maintainer['sulphur_cycle'] = {}
+
+        for z in self.waterCycle.returnLabels():
+            self.maintainer['water_cycle'][z] = []
+
+        for z in self.nitrogenCycle.returnLabels():
+            self.maintainer['nitrogen_cycle'][z] = []
+
+        for z in self.carbonCycle.returnLabels():
+            self.maintainer['carbon_cycle'][z] = []
+
+        for z in self.oxygenCycle.returnLabels():
+            self.maintainer['oxygen_cycle'][z] = []
+
+        for z in self.phosphorousCycle.returnLabels():
+            self.maintainer['phosphorous_cycle'][z] = []
+
+        for z in self.sulphurCycle.returnLabels():
+            self.maintainer['sulphur_cycle'][z] = []
 
     def evaporation(self, timePassed):
         rate = self.foreCaster.heat.intensityVal
