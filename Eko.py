@@ -31,6 +31,9 @@ class Eko(Core, object):
         self.evaporation(timePassed)
         self.precipitation()
 
+        self.janwarDekhioRe()
+
+
         self.saveValuesToJSON()
 
     def stop(self):
@@ -180,6 +183,8 @@ class Eko(Core, object):
     def instPopulation(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount):
         self.jansankhya.populator(algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount)
 
+    def janwarDekhioRe(self):
+        self.jansankhya.algae.update()
 
 eko = Eko()
 eko.run()

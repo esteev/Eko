@@ -17,7 +17,7 @@ class Jansankhya:
         self.largeBassMouth = [LargeBassMouth("6", 15, 7, 1, 3, 5) for i in range(bigFishyCount)]
         self.stork = [Stork("7", 30, 10, 1.2, 4, 5) for i in range(storkCount)]
         self.printer()
-        self.totalPop()
+        self.totalPopPrint()
 
     def printer(self):
         print ('Algae = '+str(len(self.algae)))
@@ -28,8 +28,8 @@ class Jansankhya:
         print ('LargeBassMouth = '+str(len(self.largeBassMouth)))
         print ('Stork = '+str(len(self.stork)))
 
-    def totalPop(self):
-        print(len(self.algae)+len(self.catTail)+len(self.zooPlankton)+len(self.tadpole)+len(self.greenSunFish)+len(self.largeBassMouth)+len(self.stork))
+    def totalPopPrint(self):
+        print("Total Population = " + str(len(self.algae)+len(self.catTail)+len(self.zooPlankton)+len(self.tadpole)+len(self.greenSunFish)+len(self.largeBassMouth)+len(self.stork)))
 
 
 
@@ -47,6 +47,8 @@ class Actions(Enum):
     REPRODUCE = 2
     FREE = 4
 
+drives = Drives()
+actions = Actions()
 
 class Biotic:
 
@@ -61,6 +63,38 @@ class Biotic:
         self.waterConcentration = waterConcentration
         self.foodChainRank = foodChainRank
         self.lifeExpectancy = lifeExpectancy
+
+    def update(self):
+        self.priorityBasedActions()
+
+    def priorityBasedActions(self):
+        priority = self.beingScheduler()
+
+        if priority == drives.pain:
+            print("pain")
+        elif priority == drives.danger:
+            print("danger")
+        elif priority == drives.hunger:
+            print("hunger")
+        elif priority == drives.libido:
+            print("libido")
+        elif priority == drives.free:
+            print("free")
+
+    def beingScheduler(self):
+            if self.currentState & 1 << drives.pain == 1 << drives.pain:
+                return drives.pain
+
+            if self.currentState & 1 << drives.danger == 1 << drives.danger:
+                return drives.danger
+
+            if self.currentState & 1 << drives.hunger == 1 << drives.hunger:
+                return drives.hunger
+
+            if self.currentState & 1 << drives.libido == 1 << drives.libido:
+                return drives.libido
+
+            return drives.free
 
     def returnId(self):
         return self.id
