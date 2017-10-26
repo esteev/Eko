@@ -47,8 +47,6 @@ class Actions(Enum):
     REPRODUCE = 2
     FREE = 4
 
-drives = Drives()
-actions = Actions()
 
 class Biotic:
 
@@ -70,31 +68,31 @@ class Biotic:
     def priorityBasedActions(self):
         priority = self.beingScheduler()
 
-        if priority == drives.pain:
+        if priority == Drives.pain:
             print("pain")
-        elif priority == drives.danger:
+        elif priority == Drives.danger:
             print("danger")
-        elif priority == drives.hunger:
+        elif priority == Drives.hunger:
             print("hunger")
-        elif priority == drives.libido:
+        elif priority == Drives.libido:
             print("libido")
-        elif priority == drives.free:
+        elif priority == Drives.free:
             print("free")
 
     def beingScheduler(self):
-            if self.currentState & 1 << drives.pain == 1 << drives.pain:
-                return drives.pain
+            if self.currentState & 1 << Drives.pain == 1 << Drives.pain:
+                return Drives.pain
 
-            if self.currentState & 1 << drives.danger == 1 << drives.danger:
-                return drives.danger
+            if self.currentState & 1 << Drives.danger == 1 << Drives.danger:
+                return Drives.danger
 
-            if self.currentState & 1 << drives.hunger == 1 << drives.hunger:
-                return drives.hunger
+            if self.currentState & 1 << Drives.hunger == 1 << Drives.hunger:
+                return Drives.hunger
 
-            if self.currentState & 1 << drives.libido == 1 << drives.libido:
-                return drives.libido
+            if self.currentState & 1 << Drives.libido == 1 << Drives.libido:
+                return Drives.libido
 
-            return drives.free
+            return Drives.free
 
     def returnId(self):
         return self.id
@@ -175,3 +173,4 @@ big fishy
 layer 4
 stork
 '''
+

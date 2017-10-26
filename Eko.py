@@ -7,6 +7,7 @@ import json
 from utils.jsonManager import *
 import Abiotics.Weather as Weather
 
+
 class Eko(Core, object):
     gameTime = 0.0
     nitrogenCycle = waterCycle = carbonCycle = oxygenCycle = phosphorousCycle = sulphurCycle = foreCaster = jansankhya = None
@@ -15,7 +16,7 @@ class Eko(Core, object):
 
     def init(self):
         super(Eko, self).init()
-     #   self.bufferStarter()
+        #   self.bufferStarter()
         self.cycleThreadInitializePond()
         self.saveValuesToJSON()
         self.spawnerPond()
@@ -32,7 +33,6 @@ class Eko(Core, object):
         self.precipitation()
 
         self.janwarDekhioRe()
-
 
         self.saveValuesToJSON()
 
@@ -51,15 +51,15 @@ class Eko(Core, object):
                 sizes.append(self.dataFileAbiotics[cycle]["tags"][values]["value"])
             for x, y in zip(labels, sizes):
                 dict[x] = y
-            
-            # print json.dumps(labels)
-            # print json.dumps(sizes)
+
+                # print json.dumps(labels)
+                # print json.dumps(sizes)
 
     def saveValuesToJSON(self):
         data = OrderedDict()
         save = jsonManager()
 
-        #waterCycle
+        # waterCycle
         data['water_cycle'] = {'type': 'piechart'}
         tags = {}
         tagsTemp = self.waterCycle.returnLabels()
@@ -67,7 +67,6 @@ class Eko(Core, object):
         for k, v in zip(tagsTemp, valsTemp):
             tags[k] = {'value': str(v)}
         data['water_cycle']["tags"] = tags
-
 
         # nitrogenCycle
         data['nitrogen_cycle'] = {'type': 'piechart'}
@@ -158,17 +157,17 @@ class Eko(Core, object):
 
     def evaporation(self, timePassed):
         rate = self.foreCaster.heat.intensityVal
-        self.waterCycle.resourceEvaporate(rate*timePassed)
-        self.nitrogenCycle.resourceEvaporate(rate*timePassed)
-        self.carbonCycle.resourceEvaporate(rate*timePassed)
-        self.foreCaster.changeHumidity(rate*timePassed*3)
+        self.waterCycle.resourceEvaporate(rate * timePassed)
+        self.nitrogenCycle.resourceEvaporate(rate * timePassed)
+        self.carbonCycle.resourceEvaporate(rate * timePassed)
+        self.foreCaster.changeHumidity(rate * timePassed * 3)
 
     def precipitation(self):
         rate = self.foreCaster.moisture.humidVal
         if rate > self.foreCaster.humidTolerance:
-            self.waterCycle.resourcePrecipitate(rate/3)
-            self.nitrogenCycle.resourcePrecipitate(rate/3)
-            self.carbonCycle.resourcePrecipitate(rate/3)
+            self.waterCycle.resourcePrecipitate(rate / 3)
+            self.nitrogenCycle.resourcePrecipitate(rate / 3)
+            self.carbonCycle.resourcePrecipitate(rate / 3)
             self.foreCaster.changeHumidity(-rate)
 
     def bufferStarter(self):
@@ -180,11 +179,14 @@ class Eko(Core, object):
         self.jansankhya = Jansankhya(20, 15, 10, 5, 3, 2, 1)
 
     # called whenever population is to be increased
-    def instPopulation(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount):
-        self.jansankhya.populator(algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount)
+    def instPopulation(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount,
+                       storkCount):
+        self.jansankhya.populator(algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount,
+                                  bigFishyCount, storkCount)
 
     def janwarDekhioRe(self):
         self.jansankhya.algae.update()
+
 
 eko = Eko()
 eko.run()
