@@ -185,7 +185,8 @@ class Eko(Core, object):
                                   bigFishyCount, storkCount)
 
     def janwarDekhioRe(self):
-        self.jansankhya.algae.update()
+        for x in self.jansankhya.tadpole:
+            x.update()
 
 
 eko = Eko()
