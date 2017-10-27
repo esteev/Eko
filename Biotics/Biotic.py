@@ -1,4 +1,5 @@
 from enum import IntEnum
+import random
 
 
 class Jansankhya:
@@ -55,6 +56,9 @@ class Jansankhya:
     def totalPopPrint(self):
         print("Total Population = " + str(len(self.organismList)))
 
+    def organismListShuffler(self):
+        random.shuffle(self.organismList)
+
 
 class Drives(IntEnum):
     PAIN = 1
@@ -82,7 +86,7 @@ class Biotic:
         self.sexualMaturity = sexualMaturity
         self.foodChainRank = foodChainRank
         self.lifeExpectancy = lifeExpectancy
-        self.currentState = 0
+        self.currentState = 10
 
     def update(self):
         self.priorityBasedActions()
@@ -91,15 +95,30 @@ class Biotic:
         priority = self.beingScheduler()
 
         if priority == Drives.PAIN:
-            print("PAIN")
+            self.pain()
         elif priority == Drives.DANGER:
-            print("DANGER")
+            self.danger()
         elif priority == Drives.HUNGER:
-            print("HUNGER")
+            self.hunger()
         elif priority == Drives.LIBIDO:
-            print("LIBIDO")
+            self.libido()
         elif priority == Drives.FREE:
-            print("FREE")
+            self.free()
+
+    def pain(self):
+        print("PAIN")
+
+    def danger(self):
+        print("DANGER")
+
+    def hunger(self):
+        print("HUNGER")
+
+    def libido(self):
+        print("LIBIDO")
+
+    def free(self):
+        print("FREE")
 
     def beingScheduler(self):
         temp = self.currentState

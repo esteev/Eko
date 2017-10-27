@@ -23,7 +23,7 @@ class Atmosphere(threading.Thread):
 class Forecast:
 
     heat = moisture = None
-    humidTolerance = 20
+    humidTolerance = 40
 
     def __init__(self):
         self.heat = Sun(1)

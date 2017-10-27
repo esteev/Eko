@@ -160,14 +160,21 @@ class Eko(Core, object):
         self.waterCycle.resourceEvaporate(rate * timePassed)
         self.nitrogenCycle.resourceEvaporate(rate * timePassed)
         self.carbonCycle.resourceEvaporate(rate * timePassed)
-        self.foreCaster.changeHumidity(rate * timePassed * 3)
+        self.oxygenCycle.resourceEvaporate(rate * timePassed)
+        self.phosphorousCycle.resourceEvaporate(rate * timePassed)
+        self.sulphurCycle.resourceEvaporate(rate * timePassed)
+        self.foreCaster.changeHumidity(rate * timePassed * 6)
 
     def precipitation(self):
         rate = self.foreCaster.moisture.humidVal
+        NUMBER_OF_CYCLES = 6
         if rate > self.foreCaster.humidTolerance:
-            self.waterCycle.resourcePrecipitate(rate / 3)
-            self.nitrogenCycle.resourcePrecipitate(rate / 3)
-            self.carbonCycle.resourcePrecipitate(rate / 3)
+            self.waterCycle.resourcePrecipitate(rate / NUMBER_OF_CYCLES)
+            self.nitrogenCycle.resourcePrecipitate(rate / NUMBER_OF_CYCLES)
+            self.carbonCycle.resourcePrecipitate(rate / NUMBER_OF_CYCLES)
+            self.oxygenCycle.resourcePrecipitate(rate / NUMBER_OF_CYCLES)
+            self.phosphorousCycle.resourcePrecipitate(rate / NUMBER_OF_CYCLES)
+            self.sulphurCycle.resourcePrecipitate(rate / NUMBER_OF_CYCLES)
             self.foreCaster.changeHumidity(-rate)
 
     def bufferStarter(self):
@@ -185,7 +192,9 @@ class Eko(Core, object):
                                   bigFishyCount, storkCount)
 
     def janwarDekhioRe(self):
-        for x in self.jansankhya.tadpole:
+
+        self.jansankhya.organismListShuffler()
+        for x in self.jansankhya.organismList:
             x.update()
 
 
