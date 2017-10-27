@@ -32,7 +32,7 @@ class Eko(Core, object):
         self.evaporation(timePassed)
         self.precipitation()
 
-        self.janwarDekhioRe()
+        self.janwarDekhioRe(timePassed)
 
         self.saveValuesToJSON()
 
@@ -191,12 +191,23 @@ class Eko(Core, object):
         self.jansankhya.populator(algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount,
                                   bigFishyCount, storkCount)
 
-    def janwarDekhioRe(self):
+    def janwarDekhioRe(self, timePassed):
 
         self.jansankhya.organismListShuffler()
         for x in self.jansankhya.organismList:
-            x.update()
+            foodState = 0
+            currentRank = x.getFoodChainRank()
+            for y in self.jansankhya.organismList:
+                if y.getFoodChainRank() + 1 == currentRank:
+                    # dealing with deleting eaten object
+                    if (x.currentHunger >= x.hungerTolerance):
+                        self.jansankhya.organismList.remove(y)
+                        foodState = 1
+                    break
+            x.update(timePassed, foodState)
 
+    def configuration(self, humidTolerance):
+        self.foreCaster.humidTolerance = humidTolerance
 
 eko = Eko()
 eko.run()

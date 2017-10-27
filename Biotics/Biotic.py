@@ -1,5 +1,6 @@
 from enum import IntEnum
 import random
+import math
 
 
 class Jansankhya:
@@ -11,13 +12,13 @@ class Jansankhya:
         self.populator(algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount)
 
     def populator(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount):
-        self.algae = [Algae("1", 1, 1, 0, 5) for i in range(algaeCount)]
-        self.catTail = [CatTail("2", 2, 1, 0, 5) for i in range(catTailCount)]
-        self.zooPlankton = [ZooPlankton("3", 1, 1, 1, 5) for i in range(zooPlanktonCount)]
-        self.tadpole = [Tadpole("4", 3, 2, 1.5, 5) for i in range(tadpoleCount)]
-        self.greenSunFish = [GreenSunfish("5", 10, 5, 2, 5) for i in range(smallFishyCount)]
-        self.largeBassMouth = [LargeBassMouth("6", 15, 7, 3, 5) for i in range(bigFishyCount)]
-        self.stork = [Stork("7", 30, 10, 4, 5) for i in range(storkCount)]
+        self.algae = [Algae("1", 1, 1, 0, 5, 0.5) for i in range(algaeCount)]
+        self.catTail = [CatTail("2", 2, 1, 0, 5, 1) for i in range(catTailCount)]
+        self.zooPlankton = [ZooPlankton("3", 1, 1, 1, 5, 1.5) for i in range(zooPlanktonCount)]
+        self.tadpole = [Tadpole("4", 3, 2, 2, 5, 2) for i in range(tadpoleCount)]
+        self.greenSunFish = [GreenSunfish("5", 10, 5, 3, 5, 2.5) for i in range(smallFishyCount)]
+        self.largeBassMouth = [LargeBassMouth("6", 15, 7, 4, 5, 3) for i in range(bigFishyCount)]
+        self.stork = [Stork("7", 30, 10, 5, 5, 3.5) for i in range(storkCount)]
         self.addToList()
         self.printer()
         self.totalPopPrint()
@@ -63,33 +64,47 @@ class Jansankhya:
 class Drives(IntEnum):
     PAIN = 1
     DANGER = 2
-    HUNGER = 3
-    LIBIDO = 4
-    FREE = 5
+    LIBIDO = 3
+    FREE = 4
 
 
 class Actions(IntEnum):
     RUN = 1
-    EAT = 2
-    REPRODUCE = 4
-    FREE = 8
+    REPRODUCE = 2
+    FREE = 3
 
 
 class Biotic:
 
-    id = health = sexualMaturity = foodChainRank = lifeExpectancy = None
-    currentState = None
+    id = health = sexualMaturity = foodChainRank = lifeExpectancy = hungerTolerance = None
+    initialState = currentState = None
+    currentHunger = khanaHaiKya = 0
 
-    def __init__(self, id, health, sexualMaturity, foodChainRank, lifeExpectancy):
+    def __init__(self, id, health, sexualMaturity, foodChainRank, lifeExpectancy, hungerTolerance):
         self.id = id
         self.health = health
         self.sexualMaturity = sexualMaturity
         self.foodChainRank = foodChainRank
         self.lifeExpectancy = lifeExpectancy
-        self.currentState = 10
+        self.hungerTolerance = hungerTolerance
+        self.currentState = self.randomStateProvider()
 
-    def update(self):
+    def randomStateProvider(self):
+        return 2 ** random.randint(0, Drives.FREE)
+
+    def update(self, timePassed, khanaHaiKya):
+        self.khanaHaiKya = khanaHaiKya
         self.priorityBasedActions()
+
+        self.hungerIncrement(timePassed)
+        maxVal = 2 ** Drives.FREE - 1
+        self.currentState = random.randint(0, maxVal)
+
+
+    def hungerIncrement(self, timePassed):
+        if(timePassed == 0):
+            timePassed = 2
+        self.currentHunger += math.log( int(timePassed), 10)
 
     def priorityBasedActions(self):
         priority = self.beingScheduler()
@@ -98,7 +113,7 @@ class Biotic:
             self.pain()
         elif priority == Drives.DANGER:
             self.danger()
-        elif priority == Drives.HUNGER:
+        elif self.currentHunger >= self.hungerTolerance:
             self.hunger()
         elif priority == Drives.LIBIDO:
             self.libido()
@@ -106,19 +121,28 @@ class Biotic:
             self.free()
 
     def pain(self):
-        print("PAIN")
+        pass
+      #  print(" ")
+#        self.hungerIncrement(2)
 
     def danger(self):
-        print("DANGER")
+        pass
+       # print(" ")
 
     def hunger(self):
         print("HUNGER")
+        if(self.khanaHaiKya == 1):
+            self.currentHunger = 0
+        else:
+            print("Bhookaaaaaaa")
 
     def libido(self):
-        print("LIBIDO")
+        pass
+#        print(" ")
 
     def free(self):
-        print("FREE")
+        pass
+#        print(" ")
 
     def beingScheduler(self):
         temp = self.currentState
@@ -128,35 +152,32 @@ class Biotic:
         if temp & 1 << Drives.DANGER - 1 == 1 << Drives.DANGER - 1:
             return Drives.DANGER
 
-        if temp & 1 << Drives.HUNGER - 1 == 1 << Drives.HUNGER - 1:
-            return Drives.HUNGER
-
         if temp & 1 << Drives.LIBIDO - 1 == 1 << Drives.LIBIDO - 1:
             return Drives.LIBIDO
 
         return Drives.FREE
 
-    def returnId(self):
+    def getId(self):
         return self.id
 
-    def returnFoodChainRank(self):
-        return  self.foodChainRank
+    def getFoodChainRank(self):
+        return self.foodChainRank
 
-    def returnMaturity(self):
+    def getMaturity(self):
         return  self.sexualMaturity
 
 # Layer 0 of the food chain
 
 class Algae(Biotic, object):
 
-    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy):
-        super(Algae, self).__init__(id, health, sexualMaturity,  foodChainRank, lifeExpectancy)
+    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance):
+        super(Algae, self).__init__(id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance)
 
 
 class CatTail(Biotic, object):
 
-    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy):
-        super(CatTail, self).__init__(id, health, sexualMaturity, foodChainRank, lifeExpectancy)
+    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance):
+        super(CatTail, self).__init__(id, health, sexualMaturity, foodChainRank, lifeExpectancy, hungerTolerance)
 
 
 # Layer 1 of the food chain
@@ -164,38 +185,38 @@ class CatTail(Biotic, object):
 
 class ZooPlankton(Biotic, object):
 
-    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy):
-        super(ZooPlankton, self).__init__(id, health, sexualMaturity,  foodChainRank, lifeExpectancy)
+    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance):
+        super(ZooPlankton, self).__init__(id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance)
 
 
 class Tadpole(Biotic, object):
 
-    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy):
-        super(Tadpole, self).__init__(id, health, sexualMaturity,  foodChainRank, lifeExpectancy)
+    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance):
+        super(Tadpole, self).__init__(id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance)
 
 # Layer 2 of the food chain
 
 
 class GreenSunfish(Biotic, object):
 
-    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy):
-        super(GreenSunfish, self).__init__(id, health, sexualMaturity,  foodChainRank, lifeExpectancy)
+    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance):
+        super(GreenSunfish, self).__init__(id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance)
 
 # Layer 3 of the food chain
 
 
 class LargeBassMouth(Biotic, object):
 
-    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy):
-        super(LargeBassMouth, self).__init__(id, health, sexualMaturity,  foodChainRank, lifeExpectancy)
+    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance):
+        super(LargeBassMouth, self).__init__(id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance)
 
 #Layer 4 of the food chain
 
 
 class Stork(Biotic, object):
 
-    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy):
-        super(Stork, self).__init__(id, health, sexualMaturity, foodChainRank, lifeExpectancy)
+    def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance):
+        super(Stork, self).__init__(id, health, sexualMaturity, foodChainRank, lifeExpectancy, hungerTolerance)
 
 '''
 layer 0
