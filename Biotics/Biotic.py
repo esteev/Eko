@@ -12,16 +12,48 @@ class Jansankhya:
         self.populator(algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount)
 
     def populator(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount):
-        self.algae = [Algae("1", 1, 1, 0, 5, 0.5) for i in range(algaeCount)]
-        self.catTail = [CatTail("2", 2, 1, 0, 5, 1) for i in range(catTailCount)]
-        self.zooPlankton = [ZooPlankton("3", 1, 1, 1, 5, 1.5) for i in range(zooPlanktonCount)]
-        self.tadpole = [Tadpole("4", 3, 2, 2, 5, 2) for i in range(tadpoleCount)]
-        self.greenSunFish = [GreenSunfish("5", 10, 5, 3, 5, 2.5) for i in range(smallFishyCount)]
-        self.largeBassMouth = [LargeBassMouth("6", 15, 7, 4, 5, 3) for i in range(bigFishyCount)]
-        self.stork = [Stork("7", 30, 10, 5, 5, 3.5) for i in range(storkCount)]
+        self.algae = [Algae("al", 1, 1, 0, 5, 0.5) for i in range(algaeCount)]
+        self.catTail = [CatTail("ct", 2, 1, 0, 5, 1) for i in range(catTailCount)]
+        self.zooPlankton = [ZooPlankton("zp", 1, 1, 1, 5, 1.5) for i in range(zooPlanktonCount)]
+        self.tadpole = [Tadpole("tp", 3, 2, 2, 5, 2) for i in range(tadpoleCount)]
+        self.greenSunFish = [GreenSunfish("gs", 10, 5, 3, 5, 2.5) for i in range(smallFishyCount)]
+        self.largeBassMouth = [LargeBassMouth("lb", 15, 7, 4, 5, 3) for i in range(bigFishyCount)]
+        self.stork = [Stork("st", 30, 10, 5, 5, 3.5) for i in range(storkCount)]
         self.addToList()
-        self.printer()
-        self.totalPopPrint()
+
+    def organismListUpdater(self):
+        newAlgae = []
+        newCatTail = []
+        newZooPlank = []
+        newTadpole = []
+        newSmallFishy = []
+        newBigFishy = []
+        newStork = []
+        for x in self.organismList:
+            if x.getId() == "al":
+                newAlgae.append(x)
+            elif x.getId() == "ct":
+                newCatTail.append(x)
+            elif x.getId() == "zp":
+                newZooPlank.append(x)
+            elif x.getId() == "tp":
+                newTadpole.append(x)
+            elif x.getId() == "gs":
+                newSmallFishy.append(x)
+            elif x.getId() == "lb":
+                newBigFishy.append(x)
+            elif x.getId() == "st":
+                newStork.append(x)
+     #   print (newAlgae)
+
+        self.algae = newAlgae
+        self.catTail = newCatTail
+        self.zooPlankton = newZooPlank
+        self.tadpole = newTadpole
+        self.greenSunFish = newSmallFishy
+        self.largeBassMouth = newBigFishy
+        self.stork = newStork
+
 
     def printer(self):
         print ('Algae = '+str(len(self.algae)))
@@ -57,6 +89,9 @@ class Jansankhya:
     def totalPopPrint(self):
         print("Total Population = " + str(len(self.organismList)))
 
+    def popPrintDetailed(self):
+        print(self.organismList)
+
     def organismListShuffler(self):
         random.shuffle(self.organismList)
 
@@ -78,11 +113,12 @@ class Biotic:
 
     id = health = sexualMaturity = foodChainRank = lifeExpectancy = hungerTolerance = None
     initialState = currentState = None
-    currentHunger = khanaHaiKya = 0
+    currentHunger = khanaHaiKya = maxHealth = 0
 
     def __init__(self, id, health, sexualMaturity, foodChainRank, lifeExpectancy, hungerTolerance):
         self.id = id
         self.health = health
+        self.maxHealth = health
         self.sexualMaturity = sexualMaturity
         self.foodChainRank = foodChainRank
         self.lifeExpectancy = lifeExpectancy
@@ -121,28 +157,30 @@ class Biotic:
             self.free()
 
     def pain(self):
-        pass
-      #  print(" ")
+      #  pass
+         print("PAIN")
 #        self.hungerIncrement(2)
 
     def danger(self):
-        pass
-       # print(" ")
+      #  pass
+        print("DANGER")
 
     def hunger(self):
         print("HUNGER")
         if(self.khanaHaiKya == 1):
             self.currentHunger = 0
+            print ("Khaaayyaaaa ")
         else:
-            print("Bhookaaaaaaa")
+            print("Bhookaaaaaaa " + str(self.__class__.__name__))
+            self.health -= self.maxHealth
 
     def libido(self):
-        pass
-#        print(" ")
+      #  pass
+        print("LIBIDO")
 
     def free(self):
-        pass
-#        print(" ")
+  #      pass
+        print("FREE")
 
     def beingScheduler(self):
         temp = self.currentState
@@ -168,11 +206,15 @@ class Biotic:
 
 # Layer 0 of the food chain
 
+
 class Algae(Biotic, object):
 
     def __init__(self, id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance):
         super(Algae, self).__init__(id, health, sexualMaturity,  foodChainRank, lifeExpectancy, hungerTolerance)
 
+    def hunger(self):
+        self.currentHunger = 0
+        print ("Khaaayyaaaa ")
 
 class CatTail(Biotic, object):
 

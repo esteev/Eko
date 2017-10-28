@@ -206,6 +206,11 @@ class Eko(Core, object):
                     break
             x.update(timePassed, foodState)
 
+        self.jansankhya.organismListUpdater()
+        self.jansankhya.printer()
+        self.jansankhya.totalPopPrint()
+     #   self.jansankhya.popPrintDetailed()
+
     def configuration(self, humidTolerance):
         self.foreCaster.humidTolerance = humidTolerance
 
