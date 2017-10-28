@@ -102,7 +102,6 @@ class Drives(IntEnum):
     LIBIDO = 3
     FREE = 4
 
-
 class Actions(IntEnum):
     RUN = 1
     REPRODUCE = 2
@@ -126,13 +125,14 @@ class Biotic:
         self.currentState = self.randomStateProvider()
 
     def randomStateProvider(self):
-        return 2 ** random.randint(0, Drives.FREE)
+        return 2 ** random.randint(0, Drives.FREE+1)
 
     def update(self, timePassed, khanaHaiKya):
         self.khanaHaiKya = khanaHaiKya
         self.priorityBasedActions()
 
         self.hungerIncrement(timePassed)
+
         maxVal = 2 ** Drives.FREE - 1
         self.currentState = random.randint(0, maxVal)
 
