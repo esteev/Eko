@@ -204,6 +204,9 @@ class Eko(Core, object):
                         self.jansankhya.Koroshimasu(y)  # death by becoming breakfast
                         foodState = 1
                     break
+                if y.getMaturity() == 1:
+                    self.jansankhya.birth(y)
+                    y.resetLibido()
             aliveStatus = x.update(timePassed, foodState)
             if aliveStatus == 1:
                 self.jansankhya.Koroshimasu(x)          # death by hunger

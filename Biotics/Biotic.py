@@ -5,21 +5,27 @@ import math
 
 class Jansankhya:
 
-    algae = catTail = zooPlankton = tadpole = greenSunFish = largeBassMouth = stork = []
+    algae = []
+    catTail = []
+    zooPlankton = []
+    tadpole = []
+    greenSunFish = []
+    largeBassMouth = []
+    stork = []
     organismList = []
 
     def __init__(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount):
         self.populator(algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount)
 
     def populator(self, algaeCount, catTailCount, zooPlanktonCount, tadpoleCount, smallFishyCount, bigFishyCount, storkCount):
-        self.algae = [Algae("al", 1, 1, 0, 5, 0.5) for i in range(algaeCount)]
-        self.catTail = [CatTail("ct", 2, 1, 0, 5, 1) for i in range(catTailCount)]
-        self.zooPlankton = [ZooPlankton("zp", 1, 1, 1, 5, 1.5) for i in range(zooPlanktonCount)]
-        self.tadpole = [Tadpole("tp", 3, 2, 2, 5, 2) for i in range(tadpoleCount)]
-        self.greenSunFish = [GreenSunfish("gs", 10, 5, 3, 5, 2.5) for i in range(smallFishyCount)]
-        self.largeBassMouth = [LargeBassMouth("lb", 15, 7, 4, 5, 3) for i in range(bigFishyCount)]
-        self.stork = [Stork("st", 30, 10, 5, 5, 3.5) for i in range(storkCount)]
-        self.addToList()
+        algae = [Algae("al", 1, 1, 0, 5, 0.5) for i in range(algaeCount)]
+        catTail = [CatTail("ct", 2, 1, 0, 5, 1) for i in range(catTailCount)]
+        zooPlankton = [ZooPlankton("zp", 1, 1, 1, 5, 1.5) for i in range(zooPlanktonCount)]
+        tadpole = [Tadpole("tp", 3, 2, 2, 5, 2) for i in range(tadpoleCount)]
+        greenSunFish = [GreenSunfish("gs", 10, 5, 3, 5, 2.5) for i in range(smallFishyCount)]
+        largeBassMouth = [LargeBassMouth("lb", 15, 7, 4, 5, 3) for i in range(bigFishyCount)]
+        stork = [Stork("st", 30, 10, 5, 5, 3.5) for i in range(storkCount)]
+        self.addToList(algae, catTail, zooPlankton, tadpole, greenSunFish, largeBassMouth, stork)
 
     def organismListUpdater(self):
         newAlgae = []
@@ -54,6 +60,22 @@ class Jansankhya:
         self.largeBassMouth = newBigFishy
         self.stork = newStork
 
+    def birth(self, soulWooo):
+        if soulWooo.getId() == "al":
+            self.populator(1, 0, 0, 0, 0, 0, 0)
+        elif soulWooo.getId() == "ct":
+            self.populator(0, 1, 0, 0, 0, 0, 0)
+        elif soulWooo.getId() == "zp":
+            self.populator(0, 0, 1, 0, 0, 0, 0)
+        elif soulWooo.getId() == "tp":
+            self.populator(0, 0, 0, 1, 0, 0, 0)
+        elif soulWooo.getId() == "gs":
+            self.populator(0, 0, 0, 0, 1, 0, 0)
+        elif soulWooo.getId() == "lb":
+            self.populator(0, 0, 0, 0, 0, 1, 0)
+        elif soulWooo.getId() == "st":
+            self.populator(0, 0, 0, 0, 0, 0, 1)
+
     def Koroshimasu(self, targetto):
         self.organismList.remove(targetto)
 
@@ -66,26 +88,28 @@ class Jansankhya:
         print ('LargeBassMouth = '+str(len(self.largeBassMouth)))
         print ('Stork = '+str(len(self.stork)))
 
-    def addToList(self):
-        for x in self.algae:
-            self.organismList.append(x)
+    def addToList(self, algae, catTail, zooPlankton, tadpole, greenSunFish, largeBassMouth, stork):
 
-        for x in self.catTail:
+        for x in algae:
+            self.algae.append(x)
             self.organismList.append(x)
-
-        for x in self.zooPlankton:
+        for x in catTail:
+            self.catTail.append(x)
             self.organismList.append(x)
-
-        for x in self.tadpole:
+        for x in zooPlankton:
+            self.zooPlankton.append(x)
             self.organismList.append(x)
-
-        for x in self.greenSunFish:
+        for x in tadpole:
+            self.tadpole.append(x)
             self.organismList.append(x)
-
-        for x in self.largeBassMouth:
+        for x in greenSunFish:
+            self.greenSunFish.append(x)
             self.organismList.append(x)
-
-        for x in self.stork:
+        for x in largeBassMouth:
+            self.largeBassMouth.append(x)
+            self.organismList.append(x)
+        for x in stork:
+            self.stork.append(x)
             self.organismList.append(x)
 
     def totalPopPrint(self):
@@ -117,6 +141,7 @@ class Biotic:
     id = health = sexualMaturity = foodChainRank = lifeExpectancy = hungerTolerance = None
     initialState = currentState = None
     currentHunger = khanaHaiKya = maxHealth = 0
+    currentMaturity = 0
 
     def __init__(self, id, health, sexualMaturity, foodChainRank, lifeExpectancy, hungerTolerance):
         self.id = id
@@ -198,6 +223,7 @@ class Biotic:
 
     def libido(self):
         print("LIBIDO")
+        self.currentMaturity = 1
 
     def free(self):
         print("FREE")
@@ -222,7 +248,10 @@ class Biotic:
         return self.foodChainRank
 
     def getMaturity(self):
-        return  self.sexualMaturity
+        return self.currentMaturity
+
+    def resetLibido(self):
+        self.currentMaturity = 0
 
 # Layer 0 of the food chain
 
