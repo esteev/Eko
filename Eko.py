@@ -201,10 +201,12 @@ class Eko(Core, object):
                 if y.getFoodChainRank() + 1 == currentRank:
                     # dealing with deleting eaten object
                     if (x.currentHunger >= x.hungerTolerance):
-                        self.jansankhya.organismList.remove(y)
+                        self.jansankhya.Koroshimasu(y)  # death by becoming breakfast
                         foodState = 1
                     break
-            x.update(timePassed, foodState)
+            aliveStatus = x.update(timePassed, foodState)
+            if aliveStatus == 1:
+                self.jansankhya.Koroshimasu(x)          # death by hunger
 
         self.jansankhya.organismListUpdater()
         self.jansankhya.printer()

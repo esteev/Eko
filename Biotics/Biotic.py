@@ -54,6 +54,8 @@ class Jansankhya:
         self.largeBassMouth = newBigFishy
         self.stork = newStork
 
+    def Koroshimasu(self, targetto):
+        self.organismList.remove(targetto)
 
     def printer(self):
         print ('Algae = '+str(len(self.algae)))
@@ -102,10 +104,12 @@ class Drives(IntEnum):
     LIBIDO = 3
     FREE = 4
 
+'''
 class Actions(IntEnum):
     RUN = 1
     REPRODUCE = 2
     FREE = 3
+'''
 
 
 class Biotic:
@@ -125,16 +129,34 @@ class Biotic:
         self.currentState = self.randomStateProvider()
 
     def randomStateProvider(self):
-        return 2 ** random.randint(0, Drives.FREE+1)
+        painProb = 10
+        dangerProb = 20
+        libidoProb = 50
+        freeProb = 100
+        randVal = random.randint(0, 100)
+        if randVal <= painProb:
+            return 2 ** Drives.PAIN
+        elif randVal <= dangerProb:
+            return 2 ** Drives.DANGER
+        elif randVal <= libidoProb:
+            return 2 ** Drives.LIBIDO
+        else:
+            return 2 ** Drives.FREE
+
 
     def update(self, timePassed, khanaHaiKya):
         self.khanaHaiKya = khanaHaiKya
+#        self.zindaHuMein()
         self.priorityBasedActions()
 
         self.hungerIncrement(timePassed)
 
         maxVal = 2 ** Drives.FREE - 1
         self.currentState = random.randint(0, maxVal)
+        if self.health <= 0:
+            return 1
+        else:
+            return 0
 
 
     def hungerIncrement(self, timePassed):
@@ -175,11 +197,9 @@ class Biotic:
             self.health -= self.maxHealth
 
     def libido(self):
-      #  pass
         print("LIBIDO")
 
     def free(self):
-  #      pass
         print("FREE")
 
     def beingScheduler(self):
