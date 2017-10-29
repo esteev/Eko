@@ -142,6 +142,7 @@ class Biotic:
     initialState = currentState = None
     currentHunger = khanaHaiKya = maxHealth = 0
     currentMaturity = 0
+    age = 0
 
     def __init__(self, id, health, sexualMaturity, foodChainRank, lifeExpectancy, hungerTolerance):
         self.id = id
@@ -175,6 +176,7 @@ class Biotic:
         self.priorityBasedActions()
 
         self.hungerIncrement(timePassed)
+        self.ageIncrement(timePassed)
 
         maxVal = 2 ** Drives.FREE - 1
         self.currentState = random.randint(0, maxVal)
@@ -188,6 +190,11 @@ class Biotic:
         if(timePassed == 0):
             timePassed = 2
         self.currentHunger += math.log( int(timePassed), 10)
+
+    def ageIncrement(self, timePassed):
+        if(timePassed == 0):
+            timePassed = 2
+        self.age += timePassed ** 0.2
 
     def priorityBasedActions(self):
         priority = self.beingScheduler()
@@ -252,6 +259,12 @@ class Biotic:
 
     def resetLibido(self):
         self.currentMaturity = 0
+
+    def shouldAlive(self):
+        if self.age > self.lifeExpectancy:
+            return 1
+        else:
+            return 0
 
 # Layer 0 of the food chain
 

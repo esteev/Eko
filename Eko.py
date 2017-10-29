@@ -207,6 +207,9 @@ class Eko(Core, object):
                 if y.getMaturity() == 1:
                     self.jansankhya.birth(y)
                     y.resetLibido()
+                if y.shouldAlive() == 1:
+                    self.jansankhya.Koroshimasu(y)      # death by age
+                    print ("died of age")
             aliveStatus = x.update(timePassed, foodState)
             if aliveStatus == 1:
                 self.jansankhya.Koroshimasu(x)          # death by hunger
