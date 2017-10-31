@@ -121,6 +121,9 @@ class Jansankhya:
     def organismListShuffler(self):
         random.shuffle(self.organismList)
 
+    def returnPopulation(self):
+        return [len(self.algae), len(self.catTail), len(self.zooPlankton), len(self.tadpole), len(self.greenSunFish), len(self.largeBassMouth), len(self.stork)]
+
 
 class Drives(IntEnum):
     PAIN = 1
