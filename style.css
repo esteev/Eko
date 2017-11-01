@@ -1,0 +1,44 @@
+body {
+    background-color: #002738; // color: #ffffff;
+    text-align: center;
+}
+
+.header>h1 {
+    color: #a1d9fc;
+    font-size: 3em;
+    font-weight: bold;
+}
+
+.lineChart {
+    position: relative; // display: inline;
+}
+
+canvas {
+    position: absolute;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+select {
+	float: left;
+    padding: 10px;
+    background-color: #E3E3E3;
+    border-radius: 10px;
+}
+
+option{
+	padding: 10px;
+	min-height: 5px; 
+}
+
+select:hover {
+    padding: 10px;
+    background-color: #E3E3E3;
+    border-radius: 10px;
+}
+
+.select-cycle {
+    margin-left: 10px;
+    margin-top: 10px;
+}
