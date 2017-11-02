@@ -3,28 +3,34 @@
 
 <head>
 	<title>EkO</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/custom.css">
+
 </head>
 
 <body>
 	<div class="header">
 		<h1>EkO</h1>
 	</div>
-	<div class="lineChart">
-	    <div id="chartContainer" style="height: 500px; width: 500px;"></div>
+	<div class="lineChart row">
+	    <div id="lineChartContainer" class="col-md-4" style="height: 500px; width: 500px;"></div>
     	<br>
-    	<select class="select-cycle">
-    		<option value="water_cycle" selected="">Water Cycle</option>
-    		<option value="carbon_cycle">Carbon Cycle</option>
-    		<option value="phosphorous_cycle">Phosphorous Cycle</option>
-    		<option value="oxygen_cycle">Oxygen Cycle</option>
-    		<option value="nitrogen_cycle">Nitrogen Cycle</option>
-    		<option value="sulphur_cycle">Sulphur Cycle</option>
-    	</select>
-    	<select class="select-var"></select>
+    	<div class="selectContainer col-md-2">
+	    	<select class="select-cycle">
+	    		<option value="water_cycle" selected="">Water Cycle</option>
+	    		<option value="carbon_cycle">Carbon Cycle</option>
+	    		<option value="phosphorous_cycle">Phosphorous Cycle</option>
+	    		<option value="oxygen_cycle">Oxygen Cycle</option>
+	    		<option value="nitrogen_cycle">Nitrogen Cycle</option>
+	    		<option value="sulphur_cycle">Sulphur Cycle</option>
+	    	</select>
+	    	<select class="select-var"></select>
+    	</div>
+    	<div class="pieCharts col-md-6"></div>
 	</div>
 </body>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<script src="script.js"></script>
+<script src="scripts/lineChart.js"></script>
+<script src="scripts/pieChart.js"></script>
 
 </html>

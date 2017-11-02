@@ -1,5 +1,9 @@
+html {
+    overflow-x: hidden;
+}
+
 body {
-    background-color: #002738; // color: #ffffff;
+    background-color: #002738;
     text-align: center;
 }
 
@@ -10,7 +14,8 @@ body {
 }
 
 .lineChart {
-    position: relative; // display: inline;
+    position: relative; 
+    padding-left: 20px;
 }
 
 canvas {
@@ -20,8 +25,12 @@ canvas {
     margin-top: 10px;
 }
 
+.selectContainer {
+    padding-left: 25px;
+}
+
 select {
-	float: left;
+    float: left;
     padding: 10px;
     background-color: #E3E3E3;
     border-radius: 10px;
@@ -29,16 +38,13 @@ select {
     margin-top: 10px;
 }
 
-option{
+option {
     padding: 10px;
-    min-height: 5px; 
+    min-height: 5px;
 }
 
 select:hover {
     padding: 10px;
     background-color: #E3E3E3;
     border-radius: 10px;
-}
-
-.select-cycle {
 }

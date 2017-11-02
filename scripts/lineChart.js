@@ -1,8 +1,8 @@
-const endpoint = './Data/LogData.json';
+const logUrl = './Data/LogData.json';
 
 function populateLine(cycle = "water_cycle", variable = "Atmosphere") {
     var logData = [];
-    fetch(endpoint)
+    fetch(logUrl)
         .then(response => response.json())
         .then(data => {
             z = data[cycle][variable].map(z => parseInt(z));
@@ -17,13 +17,13 @@ function populateLine(cycle = "water_cycle", variable = "Atmosphere") {
                     y: val
                 }
             });
-            var chart = new CanvasJS.Chart("chartContainer", {
+            var chart = new CanvasJS.Chart("lineChartContainer", {
+                animationEnabled: true,
                 title: {
                     text: "Log details of Atmosphere in " + cycle
                 },
                 data: [{
                     type: "line",
-
                     dataPoints: z
                 }]
             });
@@ -31,28 +31,28 @@ function populateLine(cycle = "water_cycle", variable = "Atmosphere") {
         });
 }
 
-function generateComponents(cycle){
-    fetch(endpoint)
-    .then(response => response.json())
-    .then(data => {
-        components = [];
-        for (x in data[cycle]) {
-            components.push(x);
-        }
-        var options = components.map((comp, i) => {
-            return `
+function generateComponents(cycle) {
+    fetch(logUrl)
+        .then(response => response.json())
+        .then(data => {
+            components = [];
+            for (x in data[cycle]) {
+                components.push(x);
+            }
+            var options = components.map((comp, i) => {
+                return `
                 <option value="${ comp }"> ${ comp } </option>
             `;
-        }).join('');
-        variable.innerHTML = options;
-    });
+            }).join('');
+            variable.innerHTML = options;
+        });
 }
 
-function handleCycleSelector(e){
+function handleCycleSelector(e) {
     generateComponents(this.value);
 }
 
-function handleComponentSelector(e){
+function handleComponentSelector(e) {
     populateLine(cycle.value, this.value);
 }
 
