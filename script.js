@@ -5,7 +5,6 @@ function populateLine(cycle = "water_cycle", variable = "Atmosphere") {
     fetch(endpoint)
         .then(response => response.json())
         .then(data => {
-            console.log(cycle);
             z = data[cycle][variable].map(z => parseInt(z));
             logData.push(...z);
         })
@@ -18,7 +17,6 @@ function populateLine(cycle = "water_cycle", variable = "Atmosphere") {
                     y: val
                 }
             });
-            console.log(z);
             var chart = new CanvasJS.Chart("chartContainer", {
                 title: {
                     text: "Log details of Atmosphere in " + cycle
@@ -33,17 +31,36 @@ function populateLine(cycle = "water_cycle", variable = "Atmosphere") {
         });
 }
 
-function handleCycleSelector(e){
-    // console.log(e);
-    // console.log(this.value);
-    populateLine(this.value, "Hydrosphere");
+function generateComponents(cycle){
+    fetch(endpoint)
+    .then(response => response.json())
+    .then(data => {
+        components = [];
+        for (x in data[cycle]) {
+            components.push(x);
+        }
+        var options = components.map((comp, i) => {
+            return `
+                <option value="${ comp }"> ${ comp } </option>
+            `;
+        }).join('');
+        variable.innerHTML = options;
+    });
 }
 
+function handleCycleSelector(e){
+    generateComponents(this.value);
+}
+
+function handleComponentSelector(e){
+    populateLine(cycle.value, this.value);
+}
+
+generateComponents('water_cycle');
 populateLine();
 
 const cycle = document.querySelector('.select-cycle');
 const variable = document.querySelector('.select-var');
 
-console.log(cycle.value);
-
 cycle.addEventListener('change', handleCycleSelector);
+variable.addEventListener('change', handleComponentSelector);

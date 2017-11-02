@@ -25,11 +25,13 @@ select {
     padding: 10px;
     background-color: #E3E3E3;
     border-radius: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 
 option{
-	padding: 10px;
-	min-height: 5px; 
+    padding: 10px;
+    min-height: 5px; 
 }
 
 select:hover {
@@ -39,6 +41,4 @@ select:hover {
 }
 
 .select-cycle {
-    margin-left: 10px;
-    margin-top: 10px;
 }
