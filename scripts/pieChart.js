@@ -3,41 +3,45 @@ const abioticsUrl = './Data/AbioticsData.json';
 const pieChart = document.querySelector('.pieCharts');
 
 function generatePieHTML(x) {
-    console.log(x);
     var html = '';
     for (var i = 0; i < x; i++) {
-    	html = html.concat('<div id="pieContainer' + i + '" class="col-xs-6" style="height: 300px; width: 300px;"></div>');
-	    console.log(html);
+        html = html.concat('<div id="pieContainer' + i + '" class="col-xs-6" style="height: 300px; width: 300px;"></div>');
     }
-    console.log(html);
     pieChart.innerHTML = html;
 }
 
-function generatePies(x) {
+function generatePies(x, data) {
     generatePieHTML(x);
-    for (var i = 0; i < x; i++) {
-    	id = `pieContainer${i}`;
+    var i = 0;
+    for (keys in data) {
+        var pieData = [];
+        for(one in data[keys]['tags']){
+	    	pieData.push({y: parseInt(data[keys]['tags'][one]['value']), indexLabel: one});
+        }
+    	console.log(pieData);
+        id = `pieContainer${i}`;
         var chart = new CanvasJS.Chart(id, {
-        	backgroundColor: '#002738',
-        	animationEnabled: true,
+            backgroundColor: '#002738',
+            animationEnabled: true,
             title: {
-    			fontColor: '#ffffff',
-                text: "EkO ka pie chart"
+                fontColor: '#ffffff',
+                text: keys,
             },
             data: [{
-	        	indexLabelFontColor: '#ffffff',
+                indexLabelFontColor: '#ffffff',
                 type: "pie",
-                dataPoints: [
-                    { y: 90, indexLabel: "kuchKuch" },
-                    { y: 90, indexLabel: "Atmoshpere" },
-                    { y: 90, indexLabel: "unUsed" },
-                    { y: 90, indexLabel: "Hydrosphere" }
-                ]
+                dataPoints: pieData
             }]
         });
         chart.render();
-        console.log("Generating Pie " + i);
+        i++;
     }
 }
 
-generatePies(5);
+function countCycles() {
+    fetch(abioticsUrl)
+        .then(response => response.json())
+        .then(data => generatePies(Object.keys(data).length, data));
+}
+
+countCycles();
