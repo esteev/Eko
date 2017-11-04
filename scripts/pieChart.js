@@ -18,7 +18,6 @@ function generatePies(x, data) {
         for(one in data[keys]['tags']){
 	    	pieData.push({y: parseInt(data[keys]['tags'][one]['value']), indexLabel: one});
         }
-    	console.log(pieData);
         id = `pieContainer${i}`;
         var chart = new CanvasJS.Chart(id, {
             backgroundColor: '#002738',

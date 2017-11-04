@@ -1,6 +1,28 @@
 const logUrl = './Data/LogData.json';
+var dataPoints = [];
 
-function populateLine(cycle = "water_cycle", variable = "Atmosphere") {
+function generateLine(data, variable, cycle) {
+    var chart = new CanvasJS.Chart("lineChartContainer", {
+        animationEnabled: true,
+        title: {
+            text: "Log details of " + variable + " in " + cycle
+        },
+        data: [{
+            type: "line",
+            dataPoints: data
+        }]
+    });
+    chart.render();
+    return chart;
+}
+
+function updateLineChart(chart, dataPoints) {
+    chart.options.data[0].dataPoints = dataPoints;
+    chart.render();
+    return chart;
+}
+
+function fetchData(cycle = "water_cycle", variable = "Atmosphere") {
     var logData = [];
     fetch(logUrl)
         .then(response => response.json())
@@ -9,27 +31,17 @@ function populateLine(cycle = "water_cycle", variable = "Atmosphere") {
             logData.push(...z);
         })
         .then(() => {
-
-            var z = [];
-            z = logData.map((val, i) => {
+            dataPoints = logData.map((val, i) => {
                 return {
                     x: i,
                     y: val
                 }
             });
-            var chart = new CanvasJS.Chart("lineChartContainer", {
-                animationEnabled: true,
-                title: {
-                    text: "Log details of Atmosphere in " + cycle
-                },
-                data: [{
-                    type: "line",
-                    dataPoints: z
-                }]
-            });
-            chart.render();
+            chart = flag ? updateLineChart(chart, dataPoints) : generateLine(dataPoints, variable, cycle);
+            flag = 1;
         });
 }
+
 
 function generateComponents(cycle) {
     fetch(logUrl)
@@ -53,11 +65,12 @@ function handleCycleSelector(e) {
 }
 
 function handleComponentSelector(e) {
-    populateLine(cycle.value, this.value);
+    fetchData(cycle.value, this.value);
 }
 
 generateComponents('water_cycle');
-populateLine();
+var flag = 0;
+window.setInterval(() => fetchData(), 1000);
 
 const cycle = document.querySelector('.select-cycle');
 const variable = document.querySelector('.select-var');
